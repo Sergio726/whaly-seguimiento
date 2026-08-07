@@ -17,62 +17,33 @@
 </style>
 </head>
 <body>
-<!--
-  Artefacto DE CARA AL CLIENTE. Es el único de los cinco que ve Jonas.
-  Se publica en https://claude.ai/code/artifact/fed9630f-8076-4036-bd24-b70c8f17709a
-  y hay que republicarlo SIEMPRE en esa misma URL: el link ya está en un correo
-  que él tiene desde el 04/08. Un link nuevo lo deja otra vez sin ver nada.
-
-  A diferencia de mapa-proyecto, este no necesita `armar.py`: usa las fuentes del
-  sistema, no Outfit, así que no hay nada que embeber.
-
-  ESTA PLANTILLA ES LA ÚNICA FUENTE. El index.html de Sergio726/whaly-seguimiento
-  —que es la copia que Jonas realmente abre— se REGENERA desde acá, no se edita:
-      python "Interno - Sebas/Artefactos/envolver.py" seguimiento-jonas \
-        --salida "C:/Project/Project/whaly-seguimiento/index.html"
-  Se mantuvo a mano una vez y derivó. Editar una copia y olvidarse de la otra
-  significa que él ve una versión vieja sin que nadie se entere.
-
-  Voz: rioplatense, primera persona, hablándole a él. No es copy de landing —ahí
-  va español neutro— es Sebas escribiéndole. Mantener ese registro.
-
-  Contenido: lo que se le dice acá tiene que ser cierto y estar en el ROADMAP.
-  Nada que no se pueda sostener, y nada de las notas internas.
-
-  Historial:
-   · 04/08 creado.
-   · 06/08 material del 5 y 6, dos webs maquetadas, DNS como único bloqueante.
-   · 07/08 arranca la carga del material: se suma el frente y la sección de los
-     cuatro pasos. Y se corrige el cierre, que seguía diciendo que a las webs
-     "lo único que las separa de estar publicadas es el DNS" cuando ya están en
-     línea, y que quedaban cuatro respuestas suyas que ya estaban contestadas.
--->
-
 <style>
-  /* Paleta tomada de la presentacion de Jonas (whaly-pitch.html, mayo 2026).
-     Es una identidad que se compromete con un solo mundo visual: oscuro con
-     acentos neon. Se respeta como decision suya, sin tema claro. */
+  /* ─────────────────────────────────────────────────────────────────────────
+     La paleta sale del prototipo que Jonas hizo en mayo 2026 (whaly-pitch.html).
+     Es SU identidad, elegida por él: oscura con acentos neón. Se respeta como
+     decisión suya, así que la página se compromete con un solo mundo visual y
+     no tiene tema claro — pero pinta todos sus colores explícitamente, así que
+     se ve igual en cualquier visor.
+     ───────────────────────────────────────────────────────────────────────── */
   :root {
     --navy:    #0d0014;
     --ocean:   #1a0028;
     --carta:   #21042f;
     --magenta: #ff2d78;
-    --magenta2:#e0005f;
-    --rosa:    #ff6fa8;
-    --purpura: #7b2fff;
-    --ice:     #ffe0ee;
     --blanco:  #fff0f6;
     --muted:   #c89ab0;
     --borde:   rgba(255,45,120,.16);
-    --borde2:  rgba(255,45,120,.30);
+    --borde2:  rgba(255,45,120,.34);
 
+    /* Semánticos, separados del acento a propósito: en un monitor el estado no
+       puede depender del mismo color que la marca. */
     --listo:   #3ddc97;
     --curso:   #ffb84d;
-    --frenado: #ff6fa8;
+    --espera:  #ff9d3d;
 
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
-    --paso: clamp(1.25rem, 3vw, 2rem);
+    --paso: clamp(1.15rem, 3vw, 2rem);
     --radio: 14px;
   }
 
@@ -84,248 +55,242 @@
     color: var(--blanco);
     font-family: var(--sans);
     font-size: 16px;
-    line-height: 1.62;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
-  .envoltura { max-width: 940px; margin: 0 auto; padding: 0 var(--paso) 5rem; }
+  a { color: var(--magenta); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; border-radius: 3px; }
 
-  /* ---------- encabezado ---------- */
+  .envoltura { max-width: 900px; margin: 0 auto; padding: 0 var(--paso) 4.5rem; }
+
+  /* ── Encabezado ───────────────────────────────────────────────────────── */
   .cabecera {
-    background:
-      radial-gradient(120% 140% at 85% -10%, rgba(123,47,255,.28), transparent 55%),
-      radial-gradient(90% 120% at 5% 0%, rgba(255,45,120,.18), transparent 60%),
-      var(--ocean);
     border-bottom: 1px solid var(--borde);
-    margin-bottom: 2.75rem;
+    background: linear-gradient(180deg, var(--ocean), var(--navy));
+    padding: 1.6rem var(--paso) 1.4rem;
+    margin-bottom: 2rem;
   }
   .cabecera-interior {
-    max-width: 940px; margin: 0 auto;
-    padding: 2.4rem var(--paso) 2.1rem;
-    display: flex; flex-wrap: wrap; gap: 1.75rem;
-    align-items: flex-end; justify-content: space-between;
+    max-width: 900px; margin: 0 auto;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 1.5rem; flex-wrap: wrap;
   }
-  .marca { display: flex; align-items: center; gap: .8rem; }
-  .marca .glifo { font-size: 2rem; line-height: 1; }
   .marca h1 {
-    font-size: 1.55rem; font-weight: 680; margin: 0; letter-spacing: -.025em;
+    font-size: clamp(1.3rem, 4vw, 1.7rem); margin: 0; letter-spacing: -.02em; font-weight: 650;
   }
-  .marca h1 em { font-style: normal; color: var(--magenta); }
+  .marca h1 em { color: var(--magenta); font-style: normal; }
   .marca p {
-    margin: .2rem 0 0; font-size: .78rem; color: var(--muted);
-    font-family: var(--mono);
+    margin: .3rem 0 0; font-family: var(--mono); font-size: .74rem;
+    color: var(--muted); text-transform: uppercase; letter-spacing: .1em;
   }
-
-  .contadores { display: flex; gap: 2.25rem; }
+  .contadores { display: flex; gap: 2rem; }
+  .contador { text-align: right; }
   .contador .cifra {
-    font-family: var(--mono); font-size: 2.5rem; font-weight: 600;
-    line-height: 1; letter-spacing: -.05em; font-variant-numeric: tabular-nums;
-    color: var(--ice);
+    display: block; font-family: var(--mono); font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;
   }
-  .contador .cifra.cerca { color: var(--magenta); }
+  .contador .cifra.cerca { color: var(--curso); }
   .contador .rotulo {
-    display: block; margin-top: .5rem; font-size: .68rem;
-    text-transform: uppercase; letter-spacing: .12em; color: var(--muted);
+    display: block; margin-top: .3rem; font-size: .7rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .09em;
   }
 
-  /* ---------- bloques ---------- */
-  section { margin-bottom: 2.9rem; }
-  h2 {
-    font-size: .73rem; text-transform: uppercase; letter-spacing: .14em;
-    color: var(--rosa); font-weight: 650;
-    margin: 0 0 1.1rem; padding-bottom: .6rem;
-    border-bottom: 1px solid var(--borde);
+  /* ── El titular: el estado en una línea ───────────────────────────────── */
+  .titular {
+    font-size: clamp(1.15rem, 3.4vw, 1.45rem); line-height: 1.45;
+    margin: 0 0 2rem; text-wrap: balance; font-weight: 500;
   }
-  h3 { font-size: 1rem; font-weight: 650; margin: 0 0 .4rem; letter-spacing: -.01em; color: var(--ice); }
-  p { margin: 0 0 .85rem; max-width: 68ch; }
-  p:last-child { margin-bottom: 0; }
-  strong { color: var(--ice); font-weight: 620; }
+  .titular strong { color: var(--magenta); font-weight: 650; }
 
-  /* ---------- estado ---------- */
-  .frentes { display: flex; flex-direction: column; gap: 3px; }
-  .frente {
-    display: grid; grid-template-columns: 1fr auto; gap: .5rem 1.25rem;
-    align-items: center;
+  /* ── Lo que falta de él: el único bloque fuerte de la página ───────────── */
+  .tuyo {
     background: var(--carta);
-    border-left: 3px solid var(--linea);
-    padding: .95rem 1.15rem;
+    border: 1px solid var(--borde2);
+    border-left: 4px solid var(--espera);
+    border-radius: var(--radio);
+    padding: 1.5rem 1.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .tuyo .etiqueta {
+    display: block; font-family: var(--mono); font-size: .68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .13em; color: var(--espera);
+    margin-bottom: .7rem;
+  }
+  .tuyo h2 { font-size: 1.1rem; margin: 0 0 .7rem; font-weight: 620; }
+  .tuyo p { margin: 0 0 .7rem; }
+  .tuyo p:last-child { margin-bottom: 0; }
+  .tuyo ul { margin: .8rem 0 0; padding-left: 1.15rem; }
+  .tuyo li { margin-bottom: .5rem; }
+  .tuyo li:last-child { margin-bottom: 0; }
+
+  /* ── Los cuatro pasos ─────────────────────────────────────────────────── */
+  h2.rotulo-seccion {
+    font-family: var(--mono); font-size: .72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .13em; color: var(--muted);
+    margin: 0 0 1rem; padding-bottom: .55rem; border-bottom: 1px solid var(--borde);
+  }
+  .pasos { list-style: none; margin: 0 0 2.5rem; padding: 0; display: grid; gap: 3px; }
+  .paso {
+    display: grid; grid-template-columns: 2.2rem 1fr auto; align-items: baseline;
+    gap: .3rem 1rem;
+    background: var(--ocean); border-left: 3px solid var(--borde);
+    padding: .95rem 1.1rem;
+  }
+  .paso:first-child { border-radius: var(--radio) var(--radio) 0 0; }
+  .paso:last-child { border-radius: 0 0 var(--radio) var(--radio); }
+  .paso[data-e="hecho"]  { border-left-color: var(--listo); }
+  .paso[data-e="ahora"]  { border-left-color: var(--curso); background: var(--carta); }
+  .paso .num {
+    font-family: var(--mono); font-size: .82rem; color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .paso[data-e="ahora"] .num { color: var(--curso); }
+  .paso .que { font-weight: 560; }
+  .paso .chip {
+    font-family: var(--mono); font-size: .68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .09em; color: var(--muted);
+    white-space: nowrap;
+  }
+  .paso[data-e="hecho"] .chip { color: var(--listo); }
+  .paso[data-e="ahora"] .chip { color: var(--curso); }
+  .paso .porque {
+    grid-column: 2 / -1; font-size: .89rem; color: var(--muted); margin-top: .25rem;
+  }
+
+  /* ── Frentes ──────────────────────────────────────────────────────────── */
+  .frentes { display: grid; gap: 3px; margin-bottom: 2.5rem; }
+  .frente {
+    display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: .6rem 1rem;
+    background: var(--ocean); border-left: 3px solid var(--linea, var(--borde));
+    padding: .8rem 1.1rem;
   }
   .frente:first-child { border-radius: var(--radio) var(--radio) 0 0; }
-  .frente:last-child  { border-radius: 0 0 var(--radio) var(--radio); }
-  .frente[data-estado="listo"]   { --linea: var(--listo); }
-  .frente[data-estado="curso"]   { --linea: var(--curso); }
-  .frente[data-estado="frenado"] { --linea: var(--frenado); }
-
-  .frente .que { font-weight: 580; color: var(--blanco); }
-  .frente .detalle { grid-column: 1 / -1; font-size: .87rem; color: var(--muted); }
-  .chip {
-    justify-self: end; white-space: nowrap;
-    font-size: .7rem; font-weight: 650; letter-spacing: .05em;
-    text-transform: uppercase;
-    padding: .24rem .65rem; border-radius: 100px;
-    border: 1px solid currentColor;
+  .frente:last-child { border-radius: 0 0 var(--radio) var(--radio); }
+  .frente[data-e="listo"]  { --linea: var(--listo); }
+  .frente[data-e="curso"]  { --linea: var(--curso); }
+  .frente[data-e="espera"] { --linea: var(--espera); }
+  .frente .que { font-size: .95rem; }
+  .frente .chip {
+    font-family: var(--mono); font-size: .68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .09em; white-space: nowrap;
   }
-  .chip[data-e="listo"]   { color: var(--listo); }
-  .chip[data-e="curso"]   { color: var(--curso); }
-  .chip[data-e="frenado"] { color: var(--frenado); }
+  .frente[data-e="listo"]  .chip { color: var(--listo); }
+  .frente[data-e="curso"]  .chip { color: var(--curso); }
+  .frente[data-e="espera"] .chip { color: var(--espera); }
 
-  /* ---------- pedido ---------- */
-  .pedido {
-    background:
-      radial-gradient(100% 130% at 100% 0%, rgba(123,47,255,.14), transparent 60%),
-      var(--carta);
-    border: 1px solid var(--borde2);
+  /* ── Enlaces a las webs ───────────────────────────────────────────────── */
+  .webs { display: grid; gap: .8rem; margin-bottom: 1rem; }
+  .web {
+    display: block; background: var(--ocean); border: 1px solid var(--borde);
+    border-radius: var(--radio); padding: 1.05rem 1.2rem;
+    text-decoration: none; color: var(--blanco);
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .web:hover, .web:focus-visible { border-color: var(--borde2); background: var(--carta); }
+  .web .nombre { display: block; font-weight: 600; margin-bottom: .2rem; }
+  .web .nombre::after { content: " ↗"; color: var(--magenta); }
+  .web .dir { display: block; font-family: var(--mono); font-size: .74rem; color: var(--muted); }
+
+  /* ── El detalle, colapsado ────────────────────────────────────────────── */
+  .detalle {
+    background: var(--ocean); border: 1px solid var(--borde);
+    border-radius: var(--radio); margin-bottom: .8rem;
+  }
+  .detalle > summary {
+    cursor: pointer; padding: 1rem 1.2rem; font-weight: 560; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
     border-radius: var(--radio);
-    padding: 1.7rem 1.55rem;
   }
-  .pedido > h3 { font-size: 1.2rem; margin-bottom: .55rem; }
-  .lista-material { list-style: none; margin: 1.35rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
-  .lista-material li {
-    display: grid; grid-template-columns: 1.7rem 1fr; gap: .9rem;
-    padding-bottom: 1rem; border-bottom: 1px solid var(--borde);
+  .detalle > summary::-webkit-details-marker { display: none; }
+  .detalle > summary::after {
+    content: "+"; font-family: var(--mono); color: var(--magenta);
+    font-size: 1.1rem; line-height: 1;
   }
-  .lista-material li:last-child { border-bottom: 0; padding-bottom: 0; }
-  .lista-material .n {
-    font-family: var(--mono); font-size: .8rem; font-weight: 600;
-    color: var(--magenta); padding-top: .14rem;
-  }
-  .lista-material .porque { display: block; font-size: .87rem; color: var(--muted); margin-top: .15rem; }
-
-  .atajo {
-    margin-top: 1.6rem; padding: 1.15rem 1.25rem;
-    background: rgba(255,45,120,.09);
-    border: 1px solid var(--borde);
-    border-radius: 10px;
+  .detalle[open] > summary::after { content: "−"; }
+  .detalle > summary:focus-visible { outline: 2px solid var(--magenta); outline-offset: -2px; }
+  .detalle .cuerpo { padding: 0 1.2rem 1.3rem; }
+  .detalle .cuerpo > :first-child { margin-top: 0; }
+  .detalle .cuerpo > :last-child { margin-bottom: 0; }
+  .detalle p { margin: 0 0 .85rem; }
+  .detalle h4 {
+    font-size: .95rem; margin: 1.4rem 0 .5rem; color: var(--magenta); font-weight: 600;
   }
 
-  /* ---------- el caso: cadena de tres piezas ---------- */
-  .cadena {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: .55rem; margin: 1.5rem 0 1.2rem;
-  }
+  /* Cadena del caso end-to-end */
+  .cadena { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; margin: 1.1rem 0; }
   .eslabon {
-    background: rgba(13,0,20,.55);
-    border: 1px solid var(--borde);
-    border-radius: 10px;
-    padding: .95rem 1rem;
-    position: relative;
+    background: var(--navy); border: 1px solid var(--borde);
+    border-radius: 10px; padding: .85rem .95rem; position: relative;
   }
-  .eslabon .paso {
-    display: block; font-family: var(--mono); font-size: .64rem;
-    text-transform: uppercase; letter-spacing: .12em;
-    color: var(--magenta); margin-bottom: .45rem;
+  .eslabon .rol {
+    display: block; font-family: var(--mono); font-size: .63rem;
+    text-transform: uppercase; letter-spacing: .12em; color: var(--magenta);
+    margin-bottom: .4rem;
   }
-  .eslabon .cita {
-    font-size: .88rem; color: var(--blanco); line-height: 1.45; margin: 0;
-  }
-  .eslabon .fuente {
-    display: block; margin-top: .5rem; font-size: .76rem; color: var(--muted);
-  }
+  .eslabon .cita { font-size: .86rem; margin: 0; line-height: 1.45; }
+  .eslabon .fuente { display: block; margin-top: .45rem; font-size: .74rem; color: var(--muted); }
   .eslabon + .eslabon::before {
-    content: "\2192"; position: absolute; left: -.52rem; top: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--magenta); font-size: .85rem;
+    content: "\2192"; position: absolute; left: -.5rem; top: 50%;
+    transform: translate(-50%, -50%); color: var(--magenta); font-size: .85rem;
   }
-  /* Cadena de cuatro pasos, para el proceso en curso. */
-  .cadena[data-pasos="4"] { grid-template-columns: repeat(4, 1fr); }
-  /* Donde estamos hoy: el borde y el fondo lo dicen sin depender del color solo. */
-  .eslabon[data-aqui="si"] {
-    border-color: var(--curso);
-    background: rgba(13,0,20,.85);
+
+  /* Línea de tiempo */
+  .tiempo { list-style: none; margin: 0; padding: 0; }
+  .tiempo li {
+    display: grid; grid-template-columns: 4.2rem 1fr; gap: 1rem;
+    padding: .5rem 0; border-bottom: 1px solid var(--borde);
+    font-size: .92rem;
   }
-  .eslabon[data-aqui="si"] .paso { color: var(--curso); }
-  .nota-fechas { margin-top: 1.2rem; color: var(--muted); font-size: .88rem; }
-  @media (max-width: 860px) {
-    .cadena[data-pasos="4"] { grid-template-columns: repeat(2, 1fr); }
-    /* En dos columnas el 3 arranca fila nueva: su flecha apuntaria al vacio. */
-    .cadena[data-pasos="4"] .eslabon:nth-child(3)::before { content: none; }
+  .tiempo li:last-child { border-bottom: none; }
+  .tiempo .fecha {
+    font-family: var(--mono); font-size: .8rem; color: var(--muted);
+    font-variant-numeric: tabular-nums;
   }
-  @media (max-width: 700px) {
-    .cadena, .cadena[data-pasos="4"] { grid-template-columns: 1fr; }
+  .tiempo li[data-hito] .fecha { color: var(--magenta); }
+  .tiempo .antes {
+    font-family: var(--mono); font-size: .72rem; color: var(--muted);
+    text-decoration: line-through; margin-left: .5rem;
+  }
+
+  .pie {
+    margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--borde);
+    font-size: .92rem; color: var(--muted);
+  }
+  .pie strong { color: var(--blanco); }
+
+  @media (max-width: 640px) {
+    .cabecera-interior { align-items: flex-start; }
+    .contadores { gap: 1.6rem; }
+    .contador { text-align: left; }
+    .paso { grid-template-columns: 1.9rem 1fr; }
+    .paso .chip { grid-column: 2; justify-self: start; }
+    .paso .porque { grid-column: 2; }
+    .cadena { grid-template-columns: 1fr; }
     .eslabon + .eslabon::before {
-      content: "\2193"; left: 50%; top: -.3rem; transform: translate(-50%, -50%);
+      content: "\2193"; left: 50%; top: -.28rem; transform: translate(-50%, -50%);
     }
   }
 
-  /* ---------- hecho ---------- */
-  .hecho { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 1.1rem; }
-  .tarjeta {
-    background: var(--carta); border: 1px solid var(--borde);
-    border-radius: var(--radio); padding: 1.2rem 1.3rem;
-  }
-  .tarjeta p { font-size: .9rem; color: var(--muted); margin: 0; }
-
-  /* ---------- tiempo ---------- */
-  .tiempo { list-style: none; margin: 0; padding: 0; }
-  .tiempo li {
-    display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem;
-    padding: .58rem 0; border-bottom: 1px solid var(--borde);
-    align-items: baseline; color: var(--muted);
-  }
-  .tiempo li:last-child { border-bottom: 0; }
-  .tiempo .fecha { font-family: var(--mono); font-size: .82rem; font-variant-numeric: tabular-nums; }
-  .tiempo li[data-hito] { color: var(--blanco); }
-  .tiempo li[data-hito] .fecha { color: var(--magenta); font-weight: 600; }
-  .tiempo li[data-hito] span:last-child { font-weight: 580; }
-  .tiempo .antes {
-    font-family: var(--mono); font-size: .74rem; color: var(--muted);
-    text-decoration: line-through; margin-left: .5rem; font-weight: 400;
-  }
-
-  /* ---------- conversar ---------- */
-  .conversar { display: flex; flex-direction: column; gap: 1rem; counter-reset: tema; }
-  .tema {
-    display: grid; grid-template-columns: auto 1fr; gap: 1rem;
-    background: var(--carta); border: 1px solid var(--borde);
-    border-radius: var(--radio); padding: 1.15rem 1.3rem;
-  }
-  .tema::before {
-    counter-increment: tema; content: counter(tema);
-    font-family: var(--mono); font-size: .82rem; font-weight: 600;
-    color: var(--magenta);
-    width: 1.75rem; height: 1.75rem; display: grid; place-items: center;
-    border: 1px solid var(--borde2); border-radius: 50%;
-  }
-  .tema p { font-size: .92rem; color: var(--muted); margin: 0; }
-
-  /* ---------- pie ---------- */
-  .pie {
-    margin-top: 3rem; padding: 1.4rem 1.4rem;
-    background: var(--carta);
-    border-left: 3px solid var(--purpura);
-    border-radius: 0 var(--radio) var(--radio) 0;
-    font-size: .9rem; color: var(--muted);
-    max-width: none;
-  }
-  .pie strong { color: var(--ice); }
-
-  @media (max-width: 620px) {
-    .cabecera-interior { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-    .contadores { gap: 1.9rem; }
-    .contador .cifra { font-size: 2.1rem; }
-    .frente { grid-template-columns: 1fr; }
-    .chip { justify-self: start; }
-    .tiempo li { grid-template-columns: 4.6rem 1fr; gap: .7rem; }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
   }
 </style>
 
 <header class="cabecera">
   <div class="cabecera-interior">
     <div class="marca">
-      <span class="glifo" aria-hidden="true">🤖</span>
-      <div>
-        <h1>Wha<em>ly</em> · Seguimiento</h1>
-        <p>Actualizado 7 ago 2026</p>
-      </div>
+      <h1>Wha<em>ly</em></h1>
+      <p>Actualizado 7 ago 2026</p>
     </div>
     <div class="contadores">
       <div class="contador">
         <span class="cifra cerca">6</span>
-        <span class="rotulo">días · webs</span>
+        <span class="rotulo">días · las webs</span>
       </div>
       <div class="contador">
         <span class="cifra">69</span>
-        <span class="rotulo">días · sistema</span>
+        <span class="rotulo">días · el sistema</span>
       </div>
     </div>
   </div>
@@ -333,278 +298,242 @@
 
 <div class="envoltura">
 
-  <section>
-    <h2>Ya las podés ver</h2>
-    <div class="pedido">
-      <h3>Las dos webs están en línea</h3>
-      <p>Abrilas desde el celular o la computadora, cuando quieras. Todavía están en direcciones
-      provisorias —no son la definitiva— pero lo que ves es exactamente lo que se va a publicar en tu
-      dominio.</p>
-      <ul class="lista-material">
-        <li>
-          <span class="n">01</span>
-          <span>
-            <strong><a href="https://jecel-landing.vercel.app/" target="_blank" rel="noopener">La web de Grupo Jecel</a></strong>
-            <span class="porque">jecel-landing.vercel.app — es la principal, la que te va a traer consultas.</span>
-          </span>
-        </li>
-        <li>
-          <span class="n">02</span>
-          <span>
-            <strong><a href="https://whaly-webpage.vercel.app/" target="_blank" rel="noopener">La web de Whaly</a></strong>
-            <span class="porque">whaly-webpage.vercel.app — la cara de la marca nueva, con la paleta de tu propio prototipo de mayo.</span>
-          </span>
-        </li>
-      </ul>
-      <div class="atajo">
-        <p><strong>Miralas y decime qué te parece.</strong> Es el momento de cambiar cosas: mover un
-        texto o ajustar un color ahora cuesta minutos.</p>
-        <p>Dos cosas que vas a notar y son a propósito: en la de Whaly el botón de WhatsApp no aparece
-        todavía —falta tu número— y el pie está incompleto. Prefiero que no se vea nada antes que
-        mostrar un dato equivocado.</p>
-      </div>
+  <p class="titular">
+    Las dos webs <strong>ya se pueden ver</strong> y el sistema de cotizaciones está
+    aprendiendo tu negocio. <strong>No falta nada tuyo</strong>, salvo una cosa.
+  </p>
+
+  <div class="tuyo">
+    <span class="etiqueta">Lo único que espero de vos</span>
+    <h2>Que Edgar apunte el dominio</h2>
+    <p>Las webs están armadas y se ven, pero en direcciones provisorias. Para que estén en
+    <strong>tu</strong> dominio hace falta un cambio de configuración que solo puede hacer él. Son
+    minutos de trabajo, y es lo último que separa la entrega del 13 de agosto de estar completa.</p>
+    <ul>
+      <li><strong>Te mando el pedido escrito</strong> para que se lo reenvíes tal cual, sin traducir
+      nada técnico.</li>
+      <li>Lleva una advertencia importante: <strong>al apuntar la web no se tocan los registros del
+      correo.</strong> Si se tocan, se cae el correo de la empresa. Va con los nombres exactos de lo
+      que no se toca.</li>
+    </ul>
+    <p>Y si te parece, armemos el grupo de los tres que propusiste. Así los pedidos de configuración
+    salen directo y no tenés que hacer de intermediario.</p>
+  </div>
+
+  <h2 class="rotulo-seccion">El sistema de cotizaciones, paso por paso</h2>
+  <ol class="pasos">
+    <li class="paso" data-e="ahora">
+      <span class="num">01</span>
+      <span class="que">Guardar tu material ordenado</span>
+      <span class="chip">Ahora</span>
+      <span class="porque">Cada archivo tuyo queda con una huella propia. El día que un cliente te
+      discuta un número, se puede volver al archivo exacto y a la fecha en que llegó.</span>
+    </li>
+    <li class="paso" data-e="ahora">
+      <span class="num">02</span>
+      <span class="que">Enseñarle tu criterio</span>
+      <span class="chip">Ahora</span>
+      <span class="porque">Tus 10 horas de grabación pasan a ser algo que el sistema consulta mientras
+      trabaja. Cuando le escriba a un cliente, busca cómo lo dirías vos.</span>
+    </li>
+    <li class="paso">
+      <span class="num">03</span>
+      <span class="que">Enseñarle a leer tus listas</span>
+      <span class="chip">Sigue</span>
+      <span class="porque">Las 16 listas, en sus cinco formatos. Es la parte que decide si el sistema
+      sirve de verdad: sin precios ordenados, todo lo demás es una demo linda.</span>
+    </li>
+    <li class="paso">
+      <span class="num">04</span>
+      <span class="que">Enseñarle a cotizar como vos</span>
+      <span class="chip">Sigue</span>
+      <span class="porque">La prueba de fuego: le doy el WhatsApp de Alcave y tiene que salir la misma
+      cotización #685 que mandaste vos.</span>
+    </li>
+  </ol>
+
+  <h2 class="rotulo-seccion">Cómo venimos</h2>
+  <div class="frentes">
+    <div class="frente" data-e="listo">
+      <span class="que">Tu material</span>
+      <span class="chip">Completo</span>
     </div>
-  </section>
-
-  <section>
-    <h2>Cómo venimos</h2>
-    <div class="frentes">
-      <div class="frente" data-estado="listo">
-        <span class="que">Tu material</span>
-        <span class="chip" data-e="listo">Completo</span>
-        <span class="detalle">Ya no falta nada de tu lado. Las listas y cotizaciones el 3 de agosto, las grabaciones el 5 y tres notas de voz el 6 respondiendo mis consultas. Mandaste bastante más de lo que pedí.</span>
-      </div>
-      <div class="frente" data-estado="listo">
-        <span class="que">Diseño técnico del sistema</span>
-        <span class="chip" data-e="listo">Listo</span>
-        <span class="detalle">Cómo entra un pedido, cómo lo interpreta la IA, cómo compara contra tus proveedores y cómo sale la cotización. Con un plan de trabajo de 38 tareas.</span>
-      </div>
-      <div class="frente" data-estado="listo">
-        <span class="que">Identidad gráfica de Jecel</span>
-        <span class="chip" data-e="listo">Lista</span>
-        <span class="detalle">De tu manual salieron 10 versiones del logo en vectorial, los íconos y la paleta con sus códigos exactos. Todo verificado en pantalla.</span>
-      </div>
-      <div class="frente" data-estado="listo">
-        <span class="que">Las dos webs, armadas</span>
-        <span class="chip" data-e="listo">Maquetadas</span>
-        <span class="detalle">Las dos terminadas. La de Whaly la armé ayer de punta a punta, con la paleta de tu propio prototipo de mayo. Me queda repasarlas en celular y en pantalla grande.</span>
-      </div>
-      <div class="frente" data-estado="listo">
-        <span class="que">Las dos, en línea</span>
-        <span class="chip" data-e="listo">Ya se ven</span>
-        <span class="detalle">Están publicadas y las podés abrir ahora mismo, desde el celular o la computadora. Los enlaces están acá arriba.</span>
-      </div>
-      <div class="frente" data-estado="curso">
-        <span class="que">Pasarlas a tu dominio</span>
-        <span class="chip" data-e="curso">Falta el DNS</span>
-        <span class="detalle">Hoy están en direcciones provisorias, que sirven para verlas y para mostrarlas, pero no son la dirección definitiva. Para eso necesito el cambio que hace Edgar.</span>
-      </div>
-      <div class="frente" data-estado="curso">
-        <span class="que">Sistema de cotizaciones</span>
-        <span class="chip" data-e="curso">Construyéndose</span>
-        <span class="detalle">Ya es software que corre, y desde el 3 de agosto trabaja con tus datos y no con ejemplos inventados.</span>
-      </div>
-      <div class="frente" data-estado="curso">
-        <span class="que">Cargar tu material al sistema</span>
-        <span class="chip" data-e="curso">Pasos 1 y 2 de 4</span>
-        <span class="detalle">Arrancó ayer. Es el trabajo de enseñarle tu negocio al sistema, y está justo abajo explicado paso por paso.</span>
-      </div>
+    <div class="frente" data-e="listo">
+      <span class="que">Identidad gráfica de Jecel</span>
+      <span class="chip">Lista</span>
     </div>
-  </section>
-
-  <section>
-    <h2>En qué estoy ahora</h2>
-    <div class="pedido">
-      <h3>Enseñándole tu negocio al sistema</h3>
-      <p>El motor ya está construido. Lo que hago ahora es meterle <strong>tu</strong> material adentro, y son cuatro pasos en este orden. <strong>Estoy en los dos primeros.</strong></p>
-      <div class="cadena" data-pasos="4">
-        <div class="eslabon" data-aqui="si">
-          <span class="paso">1 · Acá estoy</span>
-          <p class="cita">Guardar tu material ordenado</p>
-          <span class="fuente">Cada archivo con su huella digital, para saber de qué archivo exacto salió cada precio.</span>
-        </div>
-        <div class="eslabon" data-aqui="si">
-          <span class="paso">2 · Acá estoy</span>
-          <p class="cita">Enseñarle tu criterio</p>
-          <span class="fuente">Tus 10 horas de grabación, convertidas en algo que el asistente puede consultar mientras trabaja.</span>
-        </div>
-        <div class="eslabon">
-          <span class="paso">3 · Sigue</span>
-          <p class="cita">Enseñarle a leer tus listas</p>
-          <span class="fuente">Las 16 listas, en sus cinco formatos. La parte más difícil del proyecto.</span>
-        </div>
-        <div class="eslabon">
-          <span class="paso">4 · Sigue</span>
-          <p class="cita">Enseñarle a cotizar como vos</p>
-          <span class="fuente">La prueba de fuego: darle el WhatsApp de Alcave y ver si sale tu cotización #685.</span>
-        </div>
-      </div>
-      <p><strong>1 · Guardar tu material ordenado.</strong> Suena a detalle y no lo es. Es lo que hace que el día que un cliente te discuta un número, se pueda volver al archivo original y a la fecha en que llegó. Y si me mandás una lista actualizada, el sistema reconoce que es una versión nueva del mismo archivo en vez de duplicarla.</p>
-      <p><strong>2 · Enseñarle tu criterio.</strong> Tus grabaciones ya están pasadas a texto. Ahora se convierten en algo que el asistente <strong>consulta mientras trabaja</strong>: cuando tenga que redactarle a un cliente, busca cómo lo dijiste vos. Es lo que hace que no escriba como un robot genérico.</p>
-      <p><strong>3 · Leer tus listas.</strong> Es la que decide si el sistema sirve: sin precios normalizados, todo lo demás es una demo linda.</p>
-      <div class="atajo">
-        <p><strong>Voy a volver con preguntas, en una sola tanda.</strong> De tus grabaciones salen frases que <em>parecen</em> reglas de tu negocio — "a este cliente le cargo tanto", "por debajo de tanto no vendo". <strong>Ninguna se programa sin que me la confirmes.</strong> Ya pasó dos veces que algo sonaba a política y no lo era: el envío gratis desde 2.000 y el costo de reposición. Cada frase queda anotada con el minuto exacto, así cuando te pregunte te digo <em>dónde</em> lo dijiste y no tenés que hacer memoria.</p>
-        <p><strong>Y las cifras de las grabaciones no las tomo como ciertas.</strong> El audio tiene poca calidad y en un mismo tramo pueden aparecer "150", "15" y "4.500" para el mismo monto. Por eso todo lo que se extrae queda marcado con su minuto: antes de usar un número, se va a escuchar. Un número tuyo mal leído metido en una cotización sale mucho más caro que el minuto que cuesta verificarlo.</p>
-      </div>
-      <p class="nota-fechas"><strong>Las fechas no se movieron.</strong> Este trabajo estaba previsto y va dentro del plazo.</p>
+    <div class="frente" data-e="listo">
+      <span class="que">Las dos webs, armadas y visibles</span>
+      <span class="chip">Se ven</span>
     </div>
-  </section>
-
-  <section>
-    <h2>Lo único que me está frenando</h2>
-    <div class="pedido">
-      <h3>Necesito que Edgar apunte el dominio</h3>
-      <p>Las webs ya se ven, pero en direcciones provisorias. Para que estén en <strong>tu</strong> dominio hace falta un cambio de configuración que solo puede hacer él. <strong>Te voy a mandar el pedido escrito para que se lo reenvíes tal cual</strong>, sin que tengas que traducir nada técnico.</p>
-      <p>Son dos cosas puntuales y una advertencia importante: <strong>al apuntar la web no hay que tocar los registros del correo.</strong> Si se tocan, se cae el correo de la empresa. Está aclarado en el pedido, con los nombres exactos de lo que no se toca.</p>
-      <div class="atajo">
-        <p><strong>Ya me contaste que Edgar todavía no te contestó y que tenés una reunión pendiente con él.</strong> Cuando la tengas, con que le pases ese texto alcanza.</p>
-        <p>Y si te parece, armemos el grupo de los tres que propusiste el 30 de julio. Así los pedidos de configuración salen directo y vos te enterás sin tener que hacer de intermediario en cada ida y vuelta.</p>
-      </div>
+    <div class="frente" data-e="espera">
+      <span class="que">Pasarlas a tu dominio</span>
+      <span class="chip">Espera a Edgar</span>
     </div>
-  </section>
-
-  <section>
-    <h2>Gracias por las notas de voz</h2>
-    <div class="pedido">
-      <h3>Me aclararon dos cosas que estaba por programar mal</h3>
-      <p><strong>El costo de reposición.</strong> Yo lo había entendido como una regla de cómo cotizás vos, y me explicaste que es al revés: es la asesoría que le das al cliente para que no se descapitalice. Bien que lo aclaraste, porque estaba a punto de poner esa lógica en el lugar equivocado.</p>
-      <p>Y me quedó clarísimo el problema de fondo que le estás enseñando a tu vendedor: el cliente que revende y no mira su costo de reposición se termina descapitalizando. Eso <strong>no cambia cómo cotiza Whaly</strong> —vos cotizás con el margen ya incluido y cerrás rápido—, pero sí es criterio que el sistema puede usar para asesorar. Queda anotado.</p>
-      <p><strong>El envío gratis desde 2.000 dólares.</strong> Entendí que era una política vigente y me aclaraste que es una idea que están debatiendo dentro de la reestructuración con Dilio. <strong>No la voy a programar</strong> hasta que la definan: dejarla fija en el sistema ahora sería congelar una decisión que todavía están tomando.</p>
-      <p><strong>Y del dominio de Whaly:</strong> perfecto, lo manejo yo directo. Reviso qué versiones del nombre están libres y te digo cuáles comprar. Van a nombre tuyo, como todo lo demás.</p>
+    <div class="frente" data-e="curso">
+      <span class="que">Sistema de cotizaciones</span>
+      <span class="chip">Pasos 1 y 2 de 4</span>
     </div>
-  </section>
+  </div>
 
-  <section>
-    <h2>Lo mejor que encontré en tu material</h2>
-    <div class="pedido">
-      <h3>Tengo un caso tuyo completo, de punta a punta</h3>
-      <p>Entre lo que mandaste apareció el mismo negocio contado tres veces: cómo te entró, qué miraste y qué saliste a ofrecer. Es la primera vez que puedo ver la cadena entera.</p>
+  <h2 class="rotulo-seccion">Miralas ahora</h2>
+  <div class="webs">
+    <a class="web" href="https://jecel-landing.vercel.app/" target="_blank" rel="noopener">
+      <span class="nombre">La web de Grupo Jecel</span>
+      <span class="dir">jecel-landing.vercel.app — es la principal, la que te va a traer consultas</span>
+    </a>
+    <a class="web" href="https://whaly-webpage.vercel.app/" target="_blank" rel="noopener">
+      <span class="nombre">La web de Whaly</span>
+      <span class="dir">whaly-webpage.vercel.app — con la paleta de tu propio prototipo de mayo</span>
+    </a>
+  </div>
+  <p style="color: var(--muted); font-size: .92rem; margin: 0 0 2.5rem;">
+    Decime qué te parecen: mover un texto o ajustar un color ahora cuesta minutos. Dos cosas que vas a
+    notar y son a propósito: en la de Whaly falta el botón de WhatsApp —me falta tu número— y el pie
+    está incompleto. Prefiero que no se vea nada antes que mostrar un dato equivocado.
+  </p>
 
+  <h2 class="rotulo-seccion">El detalle, si lo querés</h2>
+
+  <details class="detalle">
+    <summary>Encontré un caso tuyo completo, de punta a punta</summary>
+    <div class="cuerpo">
+      <p>Entre lo que mandaste apareció el mismo negocio contado tres veces: cómo te entró, qué
+      miraste y qué saliste a ofrecer. Es la primera vez que puedo ver la cadena entera.</p>
       <div class="cadena">
         <div class="eslabon">
-          <span class="paso">Entra</span>
+          <span class="rol">Entra</span>
           <p class="cita">«Como andas requiero 4 headphone y 2 bolsos de laptop Targus»</p>
           <span class="fuente">María, de Alcave · WhatsApp, 1:37 p.m.</span>
         </div>
         <div class="eslabon">
-          <span class="paso">Mirás</span>
-          <p class="cita">Bolso Targus <strong>TBB617GL</strong> — Elite Móvil 15-16", 8 unidades disponibles</p>
+          <span class="rol">Mirás</span>
+          <p class="cita">Bolso Targus <strong>TBB617GL</strong> — 8 unidades disponibles</p>
           <span class="fuente">Tu lista de Targus</span>
         </div>
         <div class="eslabon">
-          <span class="paso">Sale</span>
-          <p class="cita">Cotización <strong>#685</strong> — 4 auriculares + 2 bolsos · <strong>539,40</strong> con IVA</p>
+          <span class="rol">Sale</span>
+          <p class="cita">Cotización <strong>#685</strong> · <strong>539,40</strong> con IVA</p>
           <span class="fuente">Ese mismo día</span>
         </div>
       </div>
-
-      <p><strong>Esto se convierte en la prueba que tiene que aprobar el sistema.</strong> Le voy a dar ese mensaje de WhatsApp y tiene que devolver esa misma cotización, con los mismos productos y los mismos números. Si lo logra con este caso, lo logra con los demás.</p>
-
-      <p>Y hay algo que vale más que los datos: en ese chat, María pide «bolsos Targus» y vos repreguntás <em>«¿el robusto?»</em> y <em>«¿lo querés de ruedita?»</em>. <strong>Ese criterio tuyo es exactamente lo que hay que enseñarle al sistema</strong>, y no está escrito en ningún Excel. Es la parte que te hace ganar cotizaciones.</p>
+      <p><strong>Esto es la prueba que tiene que aprobar el sistema.</strong> Le doy ese mensaje y
+      tiene que devolver esa misma cotización, con los mismos productos y los mismos números. Si lo
+      logra con este caso, lo logra con los demás.</p>
+      <p>Y hay algo que vale más que los datos: en ese chat María pide «bolsos Targus» y vos
+      repreguntás <em>«¿el robusto?»</em> y <em>«¿lo querés de ruedita?»</em>. <strong>Ese criterio
+      tuyo es lo que hay que enseñarle al sistema</strong>, y no está escrito en ningún Excel. Es la
+      parte que te hace ganar cotizaciones.</p>
     </div>
-  </section>
+  </details>
 
-  <section>
-    <h2>Qué aprendí de tus archivos</h2>
-    <div class="hecho">
-      <div class="tarjeta">
-        <h3>Tus listas vienen en cinco formatos</h3>
-        <p>Excel, PDF, texto suelto de WhatsApp, correos de Outlook y hasta notas de voz. Lo sospechábamos, pero verlo confirma que el sistema tiene que entenderlos todos. Es más trabajo del previsto en esa parte, y ya está contemplado.</p>
-      </div>
-      <div class="tarjeta">
-        <h3>No hace falta que me pases la dirección</h3>
-        <p>La dirección de Valencia y el RIF salieron de tus propias cotizaciones. Con eso cierro el pie de las dos webs sin molestarte. Me falta solo un teléfono local: el que me diste es el de Florida.</p>
-      </div>
-      <div class="tarjeta">
-        <h3>Tu sistema ya tiene datos ordenados</h3>
-        <p>Tus listas y cotizaciones salen de un sistema con códigos, precios y stock. Es una buena noticia: puede que podamos aprovechar lo que ya está cargado en vez de rehacerlo a mano.</p>
-      </div>
-      <div class="tarjeta">
-        <h3>Tus cotizaciones tienen un formato propio</h3>
-        <p>Ya tengo la plantilla exacta: encabezado, códigos, IVA por producto, subtotal y neto. Lo que salga del sistema va a verse como lo tuyo, no como una planilla genérica.</p>
-      </div>
-      <div class="tarjeta">
-        <h3>Tus 10 horas de audio están en texto</h3>
-        <p>Pasé las grabaciones a texto para poder buscar dentro. De ahí salieron las consultas que te hice, y sigo sacando reglas de cómo vendés: umbrales, descuentos, plazos y condiciones de crédito. Es la materia prima del criterio del sistema.</p>
-      </div>
-      <div class="tarjeta">
-        <h3>Tu prototipo de mayo tenía la identidad resuelta</h3>
-        <p>Los cuatro HTML que me pasaste ya usaban una paleta propia para Whaly. La usé para armar la web en vez de inventar una nueva: es tu visión, ejecutada por vos, dos meses antes de que nos conociéramos.</p>
-      </div>
+  <details class="detalle">
+    <summary>Tres cosas de tu material que te sirven a vos</summary>
+    <div class="cuerpo">
+      <h4>No hace falta que me pases la dirección ni el RIF</h4>
+      <p>Salieron de tus propias cotizaciones. Con eso cierro el pie de las dos webs sin molestarte.
+      Me falta solo un teléfono local: el que me diste es el de Florida.</p>
+
+      <h4>Tus cotizaciones tienen un formato propio y ya lo tengo</h4>
+      <p>Encabezado, códigos, IVA por producto, subtotal y neto. Lo que salga del sistema va a verse
+      como lo tuyo, no como una planilla genérica.</p>
+
+      <h4>Tu prototipo de mayo tenía la identidad resuelta</h4>
+      <p>Los cuatro HTML que me pasaste ya usaban una paleta propia para Whaly. La usé para armar la
+      web en vez de inventar una nueva: es tu visión, ejecutada por vos, dos meses antes de que nos
+      conociéramos.</p>
     </div>
-  </section>
+  </details>
 
-  <section>
-    <h2>Lo que me falta de tu lado</h2>
-    <div class="pedido">
-      <h3>Nada urgente</h3>
-      <p>Con las grabaciones quedó cubierto lo que necesitaba. Salieron de ahí varias cosas que yo
-      tenía mal entendidas y que ahora están corregidas <strong>antes</strong> de programarlas, que es
-      cuando sale barato corregirlas.</p>
-      <p>Lo único que te pido esta semana es que <strong>mires las dos webs y me digas qué te
-      parece</strong>, y que muevas lo del dominio con Edgar cuando puedas.</p>
+  <details class="detalle">
+    <summary>Dos cosas que aclaraste y cambiaron lo que se programa</summary>
+    <div class="cuerpo">
+      <p><strong>El costo de reposición no cambia cómo cotiza Whaly.</strong> Me explicaste que es la
+      asesoría que le das al cliente para que no se descapitalice, no una regla de tu cálculo. Vos
+      cotizás con el margen ya incluido y cerrás rápido. Queda anotado como criterio que el sistema
+      puede usar para asesorar, no para calcular.</p>
+      <p><strong>El envío gratis desde 2.000 dólares no se programa</strong> hasta que lo definan.
+      Es una idea que están debatiendo en la reestructuración, no una política vigente: dejarla fija
+      ahora sería congelar una decisión que todavía están tomando.</p>
+      <p>Va a haber más preguntas de este tipo, en una sola tanda. De tus grabaciones salen frases que
+      <em>parecen</em> reglas de tu negocio —«a este cliente le cargo tanto», «por debajo de tanto no
+      vendo»—. <strong>Ninguna se programa sin que me la confirmes</strong>, y cada una te la voy a
+      traer con el minuto exacto de la grabación, así no tenés que hacer memoria.</p>
     </div>
-  </section>
+  </details>
 
-  <section>
-    <h2>Línea de tiempo</h2>
-    <ul class="tiempo">
-      <li><span class="fecha">23 jul</span><span>Arrancamos</span></li>
-      <li><span class="fecha">24 jul</span><span>Relevamiento</span></li>
-      <li><span class="fecha">27 jul</span><span>Diseño técnico y plan de construcción cerrados</span></li>
-      <li><span class="fecha">28 jul</span><span>Identidad gráfica de Jecel terminada</span></li>
-      <li><span class="fecha">29 jul</span><span>Me pasaste tus cuatro prototipos</span></li>
-      <li><span class="fecha">30 jul</span><span>Edgar respondió sobre dominios y servidor</span></li>
-      <li><span class="fecha">31 jul</span><span>Nombre confirmado · maquetado en marcha</span></li>
-      <li><span class="fecha">1 ago</span><span>Base de datos, accesos, motor de cálculo y conexión con la IA funcionando</span></li>
-      <li data-hito><span class="fecha">3 ago</span><span>Me pasaste tu material — 16 listas, 10 pedidos y 9 cotizaciones</span></li>
-      <li data-hito><span class="fecha">5 ago</span><span>Me pasaste las grabaciones — 10 horas de cómo vendés</span></li>
-      <li data-hito><span class="fecha">6 ago</span><span>Las dos webs terminadas de maquetar · tus notas de voz aclarando mis consultas</span></li>
-      <li data-hito><span class="fecha">13 ago</span><span>Entrega de las dos webs <span class="antes">antes: 6 ago</span></span></li>
-      <li data-hito><span class="fecha">15 oct</span><span>Sistema de cotizaciones funcionando <span class="antes">antes: 8 oct</span></span></li>
-      <li><span class="fecha">nov</span><span>Revisión conjunta del mes 4</span></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Por qué se movieron las fechas</h2>
-    <div class="pedido">
-      <h3>Una semana las webs, una semana el sistema</h3>
-      <p><strong>Las webs pasan del 6 al 13 de agosto.</strong> Dos motivos, y ninguno es grave:</p>
-      <p>El primero es que quedamos en <strong>una</strong> web y terminamos haciendo <strong>dos</strong> — Jecel y Whaly. Fue la decisión correcta, la propusiste vos y estoy de acuerdo: tus clientes te conocen a vos, no a la marca nueva. Pero es el doble de maquetado. La hago igual y no cambia nada del plan; solo lo dejo anotado para que lo veamos juntos en la revisión del mes 4, sin sorpresas.</p>
-      <p>El segundo es que tu material llegó el 3 de agosto y prioricé procesarlo mientras estaba fresco. Fue la decisión correcta: de ahí salió el caso completo de Alcave, que es lo que más nos hace avanzar.</p>
-      <p><strong>El sistema pasa del 8 al 15 de octubre</strong>, que sigue dentro de los tres meses que acordamos. Es el mismo corrimiento, arrastrado.</p>
-      <p><strong>Lo que no cambió:</strong> el precio, el alcance de lo que te entrego y la revisión de noviembre. Solo la fecha.</p>
+  <details class="detalle">
+    <summary>Por qué las fechas se movieron una semana</summary>
+    <div class="cuerpo">
+      <p><strong>Las webs pasan del 6 al 13 de agosto.</strong> Dos motivos, ninguno grave.</p>
+      <p>El primero: quedamos en <strong>una</strong> web y terminamos haciendo <strong>dos</strong>.
+      Fue la decisión correcta, la propusiste vos y estoy de acuerdo —tus clientes te conocen a vos, no
+      a la marca nueva— pero es el doble de trabajo. La hago igual y no cambia nada del plan; lo dejo
+      anotado para verlo juntos en la revisión de noviembre, sin sorpresas.</p>
+      <p>El segundo: tu material llegó el 3 de agosto y prioricé procesarlo mientras estaba fresco. De
+      ahí salió el caso completo de Alcave, que es lo que más nos hace avanzar.</p>
+      <p><strong>El sistema pasa del 8 al 15 de octubre</strong>, que sigue dentro de los tres meses
+      que acordamos. Es el mismo corrimiento, arrastrado.</p>
+      <p><strong>Lo que no cambió:</strong> el precio, el alcance de lo que te entrego y la revisión de
+      noviembre. Solo la fecha.</p>
     </div>
-  </section>
+  </details>
 
-  <section>
-    <h2>Cuatro cosas para charlar cuando hablemos</h2>
-    <div class="conversar">
-      <div class="tema">
-        <p><strong>Tomemos el tiempo que tardás hoy en cotizar.</strong> Unas cuantas cotizaciones, cronómetro en mano, antes de Whaly. Cuando el sistema esté andando repetimos la prueba y vemos si cumplimos tu promesa de cotizar en menos de una hora. Ahí deja de ser una promesa de tu landing y pasa a ser un dato que podés mostrar.</p>
-      </div>
-      <div class="tema">
-        <p><strong>Y lo mismo con el volumen:</strong> cuántas cotizaciones hacés por mes hoy. Volvemos a medir con el sistema funcionando y la diferencia queda demostrada con números tuyos, no estimados. Es lo que le vas a mostrar a un inversor.</p>
-      </div>
-      <div class="tema">
-        <p><strong>La reestructuración con Dilio.</strong> Me quedé pensando en lo que contaste: que están definiendo el proceso de ventas, los roles y el esquema de comisiones. Eso toca directamente lo que el sistema tiene que hacer, así que me interesa saber en qué queda antes de programar la parte de reglas comerciales. Conviene que Whaly entre dentro del proceso que están escribiendo, y no al lado.</p>
-      </div>
-      <div class="tema">
-        <p><strong>La calculadora de importación de Amazon.</strong> La vi en tu prototipo y me parece muy buena idea, pero no estaba en lo que acordamos al principio. Si me pasás las fórmulas que ya usás es poco trabajo; solo quiero que decidamos juntos si entra ahora o más adelante, para que no se cuele sin hablarlo.</p>
-      </div>
-    </div>
-  </section>
+  <details class="detalle">
+    <summary>Para charlar cuando hablemos</summary>
+    <div class="cuerpo">
+      <h4>Tomemos el tiempo que tardás hoy en cotizar</h4>
+      <p>Unas cuantas cotizaciones, cronómetro en mano, antes de Whaly. Cuando el sistema esté andando
+      repetimos la prueba. Ahí tu promesa de cotizar en menos de una hora deja de ser una promesa y
+      pasa a ser un dato que podés mostrar.</p>
 
-  <section>
-    <h2>Cositas sueltas, sin apuro</h2>
-    <div class="tarjeta">
-      <p>Un teléfono local para el pie de las webs · los términos de la garantía de satisfacción por escrito, con plazo y quién paga el envío de vuelta · y si <strong>whaly.com</strong> ya es tuyo, porque aparece en tu pitch pero Edgar no lo nombró.</p>
+      <h4>Y lo mismo con el volumen</h4>
+      <p>Cuántas cotizaciones hacés por mes hoy. Volvemos a medir con el sistema funcionando y la
+      diferencia queda demostrada con números tuyos, no estimados. Es lo que le mostrás a un inversor.</p>
+
+      <h4>La reestructuración con Dilio</h4>
+      <p>Me quedé pensando en lo que contaste: que están definiendo el proceso de ventas, los roles y
+      las comisiones. Eso toca directamente lo que el sistema tiene que hacer, así que me interesa
+      saber en qué queda antes de programar las reglas comerciales. Conviene que Whaly entre
+      <em>dentro</em> del proceso que están escribiendo, no al lado.</p>
+
+      <h4>La calculadora de importación de Amazon</h4>
+      <p>La vi en tu prototipo y me parece muy buena idea, pero no estaba en lo que acordamos. Si me
+      pasás las fórmulas que ya usás es poco trabajo; solo quiero que decidamos juntos si entra ahora o
+      más adelante, para que no se cuele sin hablarlo.</p>
+
+      <h4>Cositas sueltas, sin apuro</h4>
+      <p>Un teléfono local para el pie de las webs · los términos de la garantía de satisfacción por
+      escrito, con plazo y quién paga el envío de vuelta · y si <strong>whaly.com</strong> ya es tuyo,
+      porque aparece en tu pitch pero Edgar no lo nombró.</p>
     </div>
-  </section>
+  </details>
+
+  <details class="detalle">
+    <summary>Línea de tiempo</summary>
+    <div class="cuerpo">
+      <ul class="tiempo">
+        <li><span class="fecha">23 jul</span><span>Arrancamos</span></li>
+        <li><span class="fecha">27 jul</span><span>Diseño técnico y plan de construcción cerrados</span></li>
+        <li><span class="fecha">28 jul</span><span>Identidad gráfica de Jecel terminada</span></li>
+        <li><span class="fecha">29 jul</span><span>Me pasaste tus cuatro prototipos</span></li>
+        <li><span class="fecha">31 jul</span><span>Nombre confirmado: Whaly</span></li>
+        <li><span class="fecha">1 ago</span><span>El sistema empieza a correr: base, accesos y motor de cálculo</span></li>
+        <li data-hito><span class="fecha">3 ago</span><span>Me pasaste tu material — 16 listas, 10 pedidos, 9 cotizaciones</span></li>
+        <li data-hito><span class="fecha">5 ago</span><span>Me pasaste las grabaciones — 10 horas de cómo vendés</span></li>
+        <li data-hito><span class="fecha">6 ago</span><span>Las dos webs terminadas · tus notas de voz aclarando mis consultas</span></li>
+        <li data-hito><span class="fecha">7 ago</span><span>Las dos webs en línea · arranca la carga de tu material</span></li>
+        <li data-hito><span class="fecha">13 ago</span><span>Entrega de las dos webs <span class="antes">antes: 6 ago</span></span></li>
+        <li data-hito><span class="fecha">15 oct</span><span>Sistema de cotizaciones funcionando <span class="antes">antes: 8 oct</span></span></li>
+        <li><span class="fecha">nov</span><span>Revisión conjunta del mes 4</span></li>
+      </ul>
+    </div>
+  </details>
 
   <p class="pie">
-    <strong>Dónde estamos parados.</strong> Cambió el tipo de pendiente. Hasta la semana pasada lo que faltaba era material tuyo; ahora <strong>no falta nada de tu lado</strong> y las dos webs ya se pueden ver. Lo que queda de ellas es <strong>pasarlas a tu dominio</strong>, y eso depende del cambio que hace Edgar — es configuración de minutos, pero sin eso siguen en direcciones provisorias. Es lo único que te agradezco que muevas esta semana. Mientras, de mi lado arrancó la carga de tu material al sistema: los cuatro pasos están más arriba, y el camino al 13 de agosto es trabajo mío.
+    <strong>Esta página se actualiza al cierre de cada jornada de trabajo</strong>, así podés mirar
+    cómo viene sin tener que preguntarme. Si algo no se entiende o querés ver algo que no está, decime
+    y lo agrego.
   </p>
 
 </div>
