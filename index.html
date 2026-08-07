@@ -214,8 +214,22 @@
     transform: translate(-50%, -50%);
     color: var(--magenta); font-size: .85rem;
   }
+  /* Cadena de cuatro pasos, para el proceso en curso. */
+  .cadena[data-pasos="4"] { grid-template-columns: repeat(4, 1fr); }
+  /* Donde estamos hoy: el borde y el fondo lo dicen sin depender del color solo. */
+  .eslabon[data-aqui="si"] {
+    border-color: var(--curso);
+    background: rgba(13,0,20,.85);
+  }
+  .eslabon[data-aqui="si"] .paso { color: var(--curso); }
+  .nota-fechas { margin-top: 1.2rem; color: var(--muted); font-size: .88rem; }
+  @media (max-width: 860px) {
+    .cadena[data-pasos="4"] { grid-template-columns: repeat(2, 1fr); }
+    /* En dos columnas el 3 arranca fila nueva: su flecha apuntaria al vacio. */
+    .cadena[data-pasos="4"] .eslabon:nth-child(3)::before { content: none; }
+  }
   @media (max-width: 700px) {
-    .cadena { grid-template-columns: 1fr; }
+    .cadena, .cadena[data-pasos="4"] { grid-template-columns: 1fr; }
     .eslabon + .eslabon::before {
       content: "\2193"; left: 50%; top: -.3rem; transform: translate(-50%, -50%);
     }
@@ -378,6 +392,49 @@
         <span class="chip" data-e="curso">Construyéndose</span>
         <span class="detalle">Ya es software que corre, y desde el 3 de agosto trabaja con tus datos y no con ejemplos inventados.</span>
       </div>
+      <div class="frente" data-estado="curso">
+        <span class="que">Cargar tu material al sistema</span>
+        <span class="chip" data-e="curso">Pasos 1 y 2 de 4</span>
+        <span class="detalle">Arrancó ayer. Es el trabajo de enseñarle tu negocio al sistema, y está justo abajo explicado paso por paso.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>En qué estoy ahora</h2>
+    <div class="pedido">
+      <h3>Enseñándole tu negocio al sistema</h3>
+      <p>El motor ya está construido. Lo que hago ahora es meterle <strong>tu</strong> material adentro, y son cuatro pasos en este orden. <strong>Estoy en los dos primeros.</strong></p>
+      <div class="cadena" data-pasos="4">
+        <div class="eslabon" data-aqui="si">
+          <span class="paso">1 · Acá estoy</span>
+          <p class="cita">Guardar tu material ordenado</p>
+          <span class="fuente">Cada archivo con su huella digital, para saber de qué archivo exacto salió cada precio.</span>
+        </div>
+        <div class="eslabon" data-aqui="si">
+          <span class="paso">2 · Acá estoy</span>
+          <p class="cita">Enseñarle tu criterio</p>
+          <span class="fuente">Tus 10 horas de grabación, convertidas en algo que el asistente puede consultar mientras trabaja.</span>
+        </div>
+        <div class="eslabon">
+          <span class="paso">3 · Sigue</span>
+          <p class="cita">Enseñarle a leer tus listas</p>
+          <span class="fuente">Las 16 listas, en sus cinco formatos. La parte más difícil del proyecto.</span>
+        </div>
+        <div class="eslabon">
+          <span class="paso">4 · Sigue</span>
+          <p class="cita">Enseñarle a cotizar como vos</p>
+          <span class="fuente">La prueba de fuego: darle el WhatsApp de Alcave y ver si sale tu cotización #685.</span>
+        </div>
+      </div>
+      <p><strong>1 · Guardar tu material ordenado.</strong> Suena a detalle y no lo es. Es lo que hace que el día que un cliente te discuta un número, se pueda volver al archivo original y a la fecha en que llegó. Y si me mandás una lista actualizada, el sistema reconoce que es una versión nueva del mismo archivo en vez de duplicarla.</p>
+      <p><strong>2 · Enseñarle tu criterio.</strong> Tus grabaciones ya están pasadas a texto. Ahora se convierten en algo que el asistente <strong>consulta mientras trabaja</strong>: cuando tenga que redactarle a un cliente, busca cómo lo dijiste vos. Es lo que hace que no escriba como un robot genérico.</p>
+      <p><strong>3 · Leer tus listas.</strong> Es la que decide si el sistema sirve: sin precios normalizados, todo lo demás es una demo linda.</p>
+      <div class="atajo">
+        <p><strong>Voy a volver con preguntas, en una sola tanda.</strong> De tus grabaciones salen frases que <em>parecen</em> reglas de tu negocio — "a este cliente le cargo tanto", "por debajo de tanto no vendo". <strong>Ninguna se programa sin que me la confirmes.</strong> Ya pasó dos veces que algo sonaba a política y no lo era: el envío gratis desde 2.000 y el costo de reposición. Cada frase queda anotada con el minuto exacto, así cuando te pregunte te digo <em>dónde</em> lo dijiste y no tenés que hacer memoria.</p>
+        <p><strong>Y las cifras de las grabaciones no las tomo como ciertas.</strong> El audio tiene poca calidad y en un mismo tramo pueden aparecer "150", "15" y "4.500" para el mismo monto. Por eso todo lo que se extrae queda marcado con su minuto: antes de usar un número, se va a escuchar. Un número tuyo mal leído metido en una cotización sale mucho más caro que el minuto que cuesta verificarlo.</p>
+      </div>
+      <p class="nota-fechas"><strong>Las fechas no se movieron.</strong> Este trabajo estaba previsto y va dentro del plazo.</p>
     </div>
   </section>
 
