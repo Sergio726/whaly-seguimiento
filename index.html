@@ -162,9 +162,14 @@
   .tuyo h2 { font-size: 1.1rem; margin: 0 0 .7rem; font-weight: 620; }
   .tuyo p { margin: 0 0 .7rem; }
   .tuyo p:last-child { margin-bottom: 0; }
-  .tuyo ul { margin: .8rem 0 0; padding-left: 1.15rem; }
-  .tuyo li { margin-bottom: .5rem; }
-  .tuyo li:last-child { margin-bottom: 0; }
+  /* Sin discos de viñeta: los puntos van como bloques con una línea vertical
+     corta, que es el mismo recurso que marcan los pasos y los frentes. Así la
+     página tiene UNA forma de decir «esto es un ítem» en vez de dos. */
+  .puntos { display: grid; gap: .55rem; margin: .9rem 0 0; }
+  .punto {
+    border-left: 2px solid var(--borde2);
+    padding: .1rem 0 .1rem .75rem;
+  }
 
   /* ── Los cuatro pasos ─────────────────────────────────────────────────── */
   h2.rotulo-seccion {
@@ -179,8 +184,11 @@
     background: var(--ocean); border-left: 3px solid var(--borde);
     padding: .95rem 1.1rem;
   }
-  .paso:first-child { border-radius: var(--radio) var(--radio) 0 0; }
-  .paso:last-child { border-radius: 0 0 var(--radio) var(--radio); }
+  /* Sólo el lado derecho se redondea. El izquierdo lleva la línea de color de
+     estado y una esquina curva la corta en diagonal: se ve como un defecto, no
+     como un detalle. Recto, la línea entra y sale limpia. */
+  .paso:first-child { border-radius: 0 var(--radio) 0 0; }
+  .paso:last-child { border-radius: 0 0 var(--radio) 0; }
   .paso[data-e="hecho"]  { border-left-color: var(--listo); }
   .paso[data-e="ahora"]  { border-left-color: var(--curso); background: var(--carta); }
   .paso .num {
@@ -207,12 +215,27 @@
     background: var(--ocean); border-left: 3px solid var(--linea, var(--borde));
     padding: .8rem 1.1rem;
   }
-  .frente:first-child { border-radius: var(--radio) var(--radio) 0 0; }
-  .frente:last-child { border-radius: 0 0 var(--radio) var(--radio); }
+  .frente:first-child { border-radius: 0 var(--radio) 0 0; }
+  .frente:last-child { border-radius: 0 0 var(--radio) 0; }
   .frente[data-e="listo"]  { --linea: var(--listo); }
   .frente[data-e="curso"]  { --linea: var(--curso); }
   .frente[data-e="espera"] { --linea: var(--espera); }
   .frente .que { font-size: .95rem; }
+  /* Las tareas de cada frente. Ocupan las dos columnas para arrancar alineadas
+     con el título y no debajo del chip. Una por renglón y en mono: son una lista
+     de cosas terminadas, y la mono las hace escaneables sin leerlas todas. */
+  .frente .tareas {
+    grid-column: 1 / -1; display: grid; gap: .18rem; margin-top: .45rem;
+  }
+  .frente .tareas span {
+    font-family: var(--mono); font-size: .76rem; color: var(--muted);
+    padding-left: .9rem; position: relative;
+  }
+  /* La marca es una línea corta, no un disco: el mismo recurso que el resto. */
+  .frente .tareas span::before {
+    content: ""; position: absolute; left: 0; top: .62em;
+    width: .5rem; height: 1px; background: var(--borde2);
+  }
   .frente .chip {
     font-family: var(--mono); font-size: .68rem; font-weight: 600;
     text-transform: uppercase; letter-spacing: .09em; white-space: nowrap;
@@ -349,8 +372,7 @@
       <div class="avance-relleno" style="--pct: 70%"></div>
     </div>
     <p class="avance-nota">
-      Tres de los cuatro pasos están listos. El que falta —que cotice como cotizás vos— es el más
-      grande de los cuatro, y por eso no dice 75%.
+      Tres de los cuatro pasos están listos. Falta el último: que cotice como cotizás vos.
     </p>
   </div>
 
@@ -367,13 +389,13 @@
     <p>Las webs están armadas y se ven, pero en direcciones provisorias. Para que estén en
     <strong>tu</strong> dominio hace falta un cambio de configuración que solo puede hacer él. Son
     minutos de trabajo, y es lo último que separa la entrega del 13 de agosto de estar completa.</p>
-    <ul>
-      <li><strong>Te mando el pedido escrito</strong> para que se lo reenvíes tal cual, sin traducir
-      nada técnico.</li>
-      <li>Lleva una advertencia importante: <strong>al apuntar la web no se tocan los registros del
-      correo.</strong> Si se tocan, se cae el correo de la empresa. Va con los nombres exactos de lo
-      que no se toca.</li>
-    </ul>
+    <div class="puntos">
+      <div class="punto"><strong>Te mando el pedido escrito</strong> para que se lo reenvíes tal cual,
+      sin traducir nada técnico.</div>
+      <div class="punto">Lleva una advertencia importante: <strong>al apuntar la web no se tocan los
+      registros del correo.</strong> Si se tocan, se cae el correo de la empresa. Va con los nombres
+      exactos de lo que no se toca.</div>
+    </div>
     <p>Y si te parece, armemos el grupo de los tres que propusiste. Así los pedidos de configuración
     salen directo y no tenés que hacer de intermediario.</p>
     <p><strong>Lo que sí te voy a pedir pronto, y todavía no:</strong> escuchando las grabaciones me
@@ -428,30 +450,65 @@
     <div class="frente" data-e="listo">
       <span class="que">Tu material</span>
       <span class="chip">Completo</span>
+      <span class="tareas">
+        <span>16 listas de precios recibidas y guardadas</span>
+        <span>10 pedidos y 9 cotizaciones tuyas, archivadas</span>
+        <span>9 grabaciones de venta, casi 10 horas</span>
+      </span>
     </div>
     <div class="frente" data-e="listo">
       <span class="que">Identidad gráfica de Jecel</span>
       <span class="chip">Lista</span>
+      <span class="tareas">
+        <span>Logos separados y listos para usar</span>
+        <span>Colores y tipografías definidos</span>
+      </span>
     </div>
     <div class="frente" data-e="listo">
       <span class="que">Las dos webs, armadas y visibles</span>
       <span class="chip">Se ven</span>
+      <span class="tareas">
+        <span>La de Grupo Jecel, terminada</span>
+        <span>La de Whaly, con la paleta de tu prototipo de mayo</span>
+        <span>Las dos revisadas en celular, tablet y computadora</span>
+      </span>
     </div>
     <div class="frente" data-e="espera">
       <span class="que">Pasarlas a tu dominio</span>
       <span class="chip">Espera a Edgar</span>
+      <span class="tareas">
+        <span>El pedido para Edgar, escrito y listo para reenviar</span>
+        <span>Falta que él haga el cambio: son minutos</span>
+      </span>
     </div>
     <div class="frente" data-e="listo">
       <span class="que">Tu criterio, cargado y probado</span>
       <span class="chip">Listo</span>
+      <span class="tareas">
+        <span>Las 9 grabaciones pasadas a texto</span>
+        <span>Cargadas para que el sistema las consulte</span>
+        <span>Probado con 15 preguntas de tu negocio: acertó 11</span>
+      </span>
     </div>
     <div class="frente" data-e="listo">
       <span class="que">Tus listas de precios, adentro</span>
       <span class="chip">3.211 productos</span>
+      <span class="tareas">
+        <span>Las 12 listas se leen enteras, sin corregir a mano</span>
+        <span>4.098 renglones unificados en 3.211 productos</span>
+        <span>180 productos que te vende más de un proveedor, identificados</span>
+        <span>Cada lista guarda su versión: la nueva no borra la anterior</span>
+      </span>
     </div>
     <div class="frente" data-e="curso">
       <span class="que">Sistema de cotizaciones</span>
       <span class="chip">3 de 4 pasos listos</span>
+      <span class="tareas">
+        <span>Guardar tu material ordenado</span>
+        <span>Enseñarle tu criterio</span>
+        <span>Enseñarle a leer tus listas</span>
+        <span>Falta: que cotice como cotizás vos</span>
+      </span>
     </div>
   </div>
 
