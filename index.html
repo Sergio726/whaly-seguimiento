@@ -96,6 +96,48 @@
     text-transform: uppercase; letter-spacing: .09em;
   }
 
+  /* ── La barra de avance ────────────────────────────────────────────────────
+   *
+   * Se anima al cargar: crece de 0 al valor real en un segundo y medio. No es
+   * decoración gratuita — el movimiento hace que el ojo registre la magnitud
+   * antes de leer el número, que es justo lo que Jonas viene a buscar acá.
+   *
+   * El ancho sale de la variable `--pct` en el propio elemento, y el número de
+   * al lado se escribe a mano: al actualizar hay que tocar LOS DOS. Si algún día
+   * quedan diciendo cosas distintas, es peor que no tener barra. */
+  .avance { margin: 0 0 2.5rem; }
+  .avance-cabeza {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem; margin-bottom: .6rem;
+  }
+  .avance-que { font-weight: 560; }
+  .avance-pct {
+    font-family: var(--mono); font-size: clamp(1.5rem, 4.5vw, 2rem);
+    font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;
+    color: var(--curso);
+  }
+  .avance-riel {
+    height: 12px; border-radius: 999px; background: var(--carta);
+    border: 1px solid var(--borde); overflow: hidden;
+  }
+  .avance-relleno {
+    height: 100%; width: var(--pct); border-radius: 999px;
+    background: linear-gradient(90deg, var(--listo), var(--curso));
+    transform-origin: left center;
+    animation: cargar-avance 1.5s cubic-bezier(.22, .9, .28, 1) both;
+  }
+  @keyframes cargar-avance {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  .avance-nota { margin: .7rem 0 0; font-size: .88rem; color: var(--muted); }
+
+  /* Quien pidió menos movimiento ve la barra en su valor final, sin animación.
+   * La barra sigue informando lo mismo: lo único que se saca es el recorrido. */
+  @media (prefers-reduced-motion: reduce) {
+    .avance-relleno { animation: none; }
+  }
+
   /* ── El titular: el estado en una línea ───────────────────────────────── */
   .titular {
     font-size: clamp(1.15rem, 3.4vw, 1.45rem); line-height: 1.45;
@@ -281,15 +323,15 @@
   <div class="cabecera-interior">
     <div class="marca">
       <h1>Wha<em>ly</em></h1>
-      <p>Actualizado 8 ago 2026</p>
+      <p>Actualizado 12 ago 2026 &middot; 09:15</p>
     </div>
     <div class="contadores">
       <div class="contador">
-        <span class="cifra cerca">5</span>
-        <span class="rotulo">días · las webs</span>
+        <span class="cifra cerca">1</span>
+        <span class="rotulo">día · las webs</span>
       </div>
       <div class="contador">
-        <span class="cifra">68</span>
+        <span class="cifra">57</span>
         <span class="rotulo">días · el sistema</span>
       </div>
     </div>
@@ -298,15 +340,29 @@
 
 <div class="envoltura">
 
+  <div class="avance">
+    <div class="avance-cabeza">
+      <span class="avance-que">Sistema de cotizaciones</span>
+      <span class="avance-pct">70%</span>
+    </div>
+    <div class="avance-riel" role="img" aria-label="Avance del sistema de cotizaciones: 70 por ciento">
+      <div class="avance-relleno" style="--pct: 70%"></div>
+    </div>
+    <p class="avance-nota">
+      Tres de los cuatro pasos están listos. El que falta —que cotice como cotizás vos— es el más
+      grande de los cuatro, y por eso no dice 75%.
+    </p>
+  </div>
+
   <p class="titular">
-    <strong>Tus 12 listas de precios ya están adentro y unificadas.</strong> Son 4.098 renglones que
-    quedaron en <strong>3.211 productos</strong>: uno de cada cinco estaba repetido en más de una
-    lista, y ahora, cuando dos proveedores te venden lo mismo, el sistema lo ve como una sola cosa con
-    dos precios. Sumado a tus 10 horas de grabación, <strong>ya son tres de los cuatro pasos</strong>.
+    <strong>Tus 12 listas de precios ya están adentro y unificadas.</strong> Eran 4.098 renglones y
+    quedaron en <strong>3.211 productos</strong>, porque uno de cada cinco lo tenías repetido en dos o
+    tres listas a la vez. Ahora, cuando dos proveedores te venden lo mismo, el sistema lo ve como una
+    sola cosa con dos precios.
   </p>
 
   <div class="tuyo">
-    <span class="etiqueta">Lo único que espero de vos</span>
+    <span class="etiqueta">Mañana es la entrega, y falta esto</span>
     <h2>Que Edgar apunte el dominio</h2>
     <p>Las webs están armadas y se ven, pero en direcciones provisorias. Para que estén en
     <strong>tu</strong> dominio hace falta un cambio de configuración que solo puede hacer él. Son
