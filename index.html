@@ -6,11 +6,8 @@
 <title>Whaly — Seguimiento del proyecto</title>
 <meta name="description" content="Seguimiento del proyecto Whaly. Estado del trabajo, actualizado al cerrar cada entrega.">
 <meta name="theme-color" content="#0d0014">
-<!-- Sin indexar en buscadores: la pagina es para compartirle el link a una
-     persona, no para que aparezca en Google. Va tambien en robots.txt. -->
 <meta name="robots" content="noindex, nofollow">
 <style>
-  /* El contenedor de artefactos aportaba un reset minimo; aca hay que ponerlo. */
   *, *::before, *::after { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   img { max-width: 100%; height: auto; }
@@ -18,25 +15,21 @@
 </head>
 <body>
 <style>
-  /* ─────────────────────────────────────────────────────────────────────────
-     La paleta sale del prototipo que Jonas hizo en mayo 2026 (whaly-pitch.html).
-     Es SU identidad, elegida por él: oscura con acentos neón. Se respeta como
-     decisión suya, así que la página se compromete con un solo mundo visual y
-     no tiene tema claro — pero pinta todos sus colores explícitamente, así que
-     se ve igual en cualquier visor.
-     ───────────────────────────────────────────────────────────────────────── */
+  
   :root {
     --navy:    #0d0014;
     --ocean:   #1a0028;
-    --carta:   #21042f;
+    --carta:   #2b1040;
     --magenta: #ff2d78;
+    --purpura: #7b2fff;
+    --rosa:    #ff6fa8;
     --blanco:  #fff0f6;
     --muted:   #c89ab0;
-    --borde:   rgba(255,45,120,.16);
-    --borde2:  rgba(255,45,120,.34);
+    
+    --borde:   rgba(123,47,255,.20);
+    --borde2:  rgba(123,47,255,.40);
 
-    /* Semánticos, separados del acento a propósito: en un monitor el estado no
-       puede depender del mismo color que la marca. */
+    
     --listo:   #3ddc97;
     --curso:   #ffb84d;
     --espera:  #ff9d3d;
@@ -64,7 +57,7 @@
 
   .envoltura { max-width: 900px; margin: 0 auto; padding: 0 var(--paso) 4.5rem; }
 
-  /* ── Encabezado ───────────────────────────────────────────────────────── */
+  
   .cabecera {
     border-bottom: 1px solid var(--borde);
     background: linear-gradient(180deg, var(--ocean), var(--navy));
@@ -76,13 +69,30 @@
     display: flex; align-items: flex-end; justify-content: space-between;
     gap: 1.5rem; flex-wrap: wrap;
   }
+  
   .marca h1 {
-    font-size: clamp(1.3rem, 4vw, 1.7rem); margin: 0; letter-spacing: -.02em; font-weight: 650;
+    font-size: clamp(1.35rem, 4vw, 1.75rem); margin: 0; letter-spacing: -.03em;
+    font-weight: 650; text-transform: lowercase; color: var(--blanco);
   }
-  .marca h1 em { color: var(--magenta); font-style: normal; }
+  .marca .bajada {
+    margin: .35rem 0 0; font-size: .82rem; color: var(--muted); text-transform: none;
+    letter-spacing: 0; font-family: var(--sans); max-width: 34ch;
+  }
   .marca p {
     margin: .3rem 0 0; font-family: var(--mono); font-size: .74rem;
     color: var(--muted); text-transform: uppercase; letter-spacing: .1em;
+  }
+  
+  .marca .estado {
+    display: inline-flex; align-items: center; gap: .4rem; margin-top: .55rem;
+    padding: .2rem .6rem; border-radius: 999px;
+    border: 1px solid var(--borde2); background: rgba(123,47,255,.10);
+    font-family: var(--mono); font-size: .68rem; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .marca .estado::before {
+    content: ""; width: .42rem; height: .42rem; border-radius: 50%;
+    background: var(--purpura);
   }
   .contadores { display: flex; gap: 2rem; }
   .contador { text-align: right; }
@@ -96,15 +106,7 @@
     text-transform: uppercase; letter-spacing: .09em;
   }
 
-  /* ── La barra de avance ────────────────────────────────────────────────────
-   *
-   * Se anima al cargar: crece de 0 al valor real en un segundo y medio. No es
-   * decoración gratuita — el movimiento hace que el ojo registre la magnitud
-   * antes de leer el número, que es justo lo que Jonas viene a buscar acá.
-   *
-   * El ancho sale de la variable `--pct` en el propio elemento, y el número de
-   * al lado se escribe a mano: al actualizar hay que tocar LOS DOS. Si algún día
-   * quedan diciendo cosas distintas, es peor que no tener barra. */
+  
   .avance { margin: 0 0 2.5rem; }
   .avance-cabeza {
     display: flex; align-items: baseline; justify-content: space-between;
@@ -132,20 +134,19 @@
   }
   .avance-nota { margin: .7rem 0 0; font-size: .88rem; color: var(--muted); }
 
-  /* Quien pidió menos movimiento ve la barra en su valor final, sin animación.
-   * La barra sigue informando lo mismo: lo único que se saca es el recorrido. */
+  
   @media (prefers-reduced-motion: reduce) {
     .avance-relleno { animation: none; }
   }
 
-  /* ── El titular: el estado en una línea ───────────────────────────────── */
+  
   .titular {
     font-size: clamp(1.15rem, 3.4vw, 1.45rem); line-height: 1.45;
     margin: 0 0 2rem; text-wrap: balance; font-weight: 500;
   }
   .titular strong { color: var(--magenta); font-weight: 650; }
 
-  /* ── Lo que falta de él: el único bloque fuerte de la página ───────────── */
+  
   .tuyo {
     background: var(--carta);
     border: 1px solid var(--borde2);
@@ -162,16 +163,14 @@
   .tuyo h2 { font-size: 1.1rem; margin: 0 0 .7rem; font-weight: 620; }
   .tuyo p { margin: 0 0 .7rem; }
   .tuyo p:last-child { margin-bottom: 0; }
-  /* Sin discos de viñeta: los puntos van como bloques con una línea vertical
-     corta, que es el mismo recurso que marcan los pasos y los frentes. Así la
-     página tiene UNA forma de decir «esto es un ítem» en vez de dos. */
+  
   .puntos { display: grid; gap: .55rem; margin: .9rem 0 0; }
   .punto {
     border-left: 2px solid var(--borde2);
     padding: .1rem 0 .1rem .75rem;
   }
 
-  /* ── Los cuatro pasos ─────────────────────────────────────────────────── */
+  
   h2.rotulo-seccion {
     font-family: var(--mono); font-size: .72rem; font-weight: 600;
     text-transform: uppercase; letter-spacing: .13em; color: var(--muted);
@@ -184,9 +183,7 @@
     background: var(--ocean); border-left: 3px solid var(--borde);
     padding: .95rem 1.1rem;
   }
-  /* Sólo el lado derecho se redondea. El izquierdo lleva la línea de color de
-     estado y una esquina curva la corta en diagonal: se ve como un defecto, no
-     como un detalle. Recto, la línea entra y sale limpia. */
+  
   .paso:first-child { border-radius: 0 var(--radio) 0 0; }
   .paso:last-child { border-radius: 0 0 var(--radio) 0; }
   .paso[data-e="hecho"]  { border-left-color: var(--listo); }
@@ -208,7 +205,7 @@
     grid-column: 2 / -1; font-size: .89rem; color: var(--muted); margin-top: .25rem;
   }
 
-  /* ── Frentes ──────────────────────────────────────────────────────────── */
+  
   .frentes { display: grid; gap: 3px; margin-bottom: 2.5rem; }
   .frente {
     display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: .6rem 1rem;
@@ -221,9 +218,7 @@
   .frente[data-e="curso"]  { --linea: var(--curso); }
   .frente[data-e="espera"] { --linea: var(--espera); }
   .frente .que { font-size: .95rem; }
-  /* Las tareas de cada frente. Ocupan las dos columnas para arrancar alineadas
-     con el título y no debajo del chip. Una por renglón y en mono: son una lista
-     de cosas terminadas, y la mono las hace escaneables sin leerlas todas. */
+  
   .frente .tareas {
     grid-column: 1 / -1; display: grid; gap: .18rem; margin-top: .45rem;
   }
@@ -231,7 +226,7 @@
     font-family: var(--mono); font-size: .76rem; color: var(--muted);
     padding-left: .9rem; position: relative;
   }
-  /* La marca es una línea corta, no un disco: el mismo recurso que el resto. */
+  
   .frente .tareas span::before {
     content: ""; position: absolute; left: 0; top: .62em;
     width: .5rem; height: 1px; background: var(--borde2);
@@ -244,7 +239,7 @@
   .frente[data-e="curso"]  .chip { color: var(--curso); }
   .frente[data-e="espera"] .chip { color: var(--espera); }
 
-  /* ── Enlaces a las webs ───────────────────────────────────────────────── */
+  
   .webs { display: grid; gap: .8rem; margin-bottom: 1rem; }
   .web {
     display: block; background: var(--ocean); border: 1px solid var(--borde);
@@ -254,10 +249,10 @@
   }
   .web:hover, .web:focus-visible { border-color: var(--borde2); background: var(--carta); }
   .web .nombre { display: block; font-weight: 600; margin-bottom: .2rem; }
-  .web .nombre::after { content: " ↗"; color: var(--magenta); }
+  .web .nombre::after { content: " ↗"; color: var(--purpura); }
   .web .dir { display: block; font-family: var(--mono); font-size: .74rem; color: var(--muted); }
 
-  /* ── El detalle, colapsado ────────────────────────────────────────────── */
+  
   .detalle {
     background: var(--ocean); border: 1px solid var(--borde);
     border-radius: var(--radio); margin-bottom: .8rem;
@@ -269,7 +264,7 @@
   }
   .detalle > summary::-webkit-details-marker { display: none; }
   .detalle > summary::after {
-    content: "+"; font-family: var(--mono); color: var(--magenta);
+    content: "+"; font-family: var(--mono); color: var(--purpura);
     font-size: 1.1rem; line-height: 1;
   }
   .detalle[open] > summary::after { content: "−"; }
@@ -279,10 +274,10 @@
   .detalle .cuerpo > :last-child { margin-bottom: 0; }
   .detalle p { margin: 0 0 .85rem; }
   .detalle h4 {
-    font-size: .95rem; margin: 1.4rem 0 .5rem; color: var(--magenta); font-weight: 600;
+    font-size: .95rem; margin: 1.4rem 0 .5rem; color: var(--rosa); font-weight: 600;
   }
 
-  /* Cadena del caso end-to-end */
+  
   .cadena { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; margin: 1.1rem 0; }
   .eslabon {
     background: var(--navy); border: 1px solid var(--borde);
@@ -290,17 +285,17 @@
   }
   .eslabon .rol {
     display: block; font-family: var(--mono); font-size: .63rem;
-    text-transform: uppercase; letter-spacing: .12em; color: var(--magenta);
+    text-transform: uppercase; letter-spacing: .12em; color: var(--purpura);
     margin-bottom: .4rem;
   }
   .eslabon .cita { font-size: .86rem; margin: 0; line-height: 1.45; }
   .eslabon .fuente { display: block; margin-top: .45rem; font-size: .74rem; color: var(--muted); }
   .eslabon + .eslabon::before {
     content: "\2192"; position: absolute; left: -.5rem; top: 50%;
-    transform: translate(-50%, -50%); color: var(--magenta); font-size: .85rem;
+    transform: translate(-50%, -50%); color: var(--purpura); font-size: .85rem;
   }
 
-  /* Línea de tiempo */
+  
   .tiempo { list-style: none; margin: 0; padding: 0; }
   .tiempo li {
     display: grid; grid-template-columns: 4.2rem 1fr; gap: 1rem;
@@ -312,7 +307,7 @@
     font-family: var(--mono); font-size: .8rem; color: var(--muted);
     font-variant-numeric: tabular-nums;
   }
-  .tiempo li[data-hito] .fecha { color: var(--magenta); }
+  .tiempo li[data-hito] .fecha { color: var(--rosa); }
   .tiempo .antes {
     font-family: var(--mono); font-size: .72rem; color: var(--muted);
     text-decoration: line-through; margin-left: .5rem;
@@ -345,17 +340,20 @@
 <header class="cabecera">
   <div class="cabecera-interior">
     <div class="marca">
-      <h1>Wha<em>ly</em></h1>
-      <p>Actualizado 12 ago 2026 &middot; 09:15</p>
+      <h1>whaly</h1>
+      <p class="bajada">Cotizaciones de tecnología en minutos, no en semanas.</p>
+      <span class="estado">En desarrollo &middot; por Grupo Jecel</span>
+      <p>Actualizado 13 ago 2026 &middot; 19:40</p>
     </div>
     <div class="contadores">
       <div class="contador">
-        <span class="cifra cerca">1</span>
-        <span class="rotulo">día · las webs</span>
+        <span class="cifra cerca">hoy</span>
+        <span class="rotulo">las webs</span>
       </div>
+      
       <div class="contador">
-        <span class="cifra">57</span>
-        <span class="rotulo">días · el sistema</span>
+        <span class="cifra">63</span>
+        <span class="rotulo">días al 15 de oct</span>
       </div>
     </div>
   </div>
@@ -366,42 +364,51 @@
   <div class="avance">
     <div class="avance-cabeza">
       <span class="avance-que">Sistema de cotizaciones</span>
-      <span class="avance-pct">70%</span>
+      <span class="avance-pct">75%</span>
     </div>
-    <div class="avance-riel" role="img" aria-label="Avance del sistema de cotizaciones: 70 por ciento">
-      <div class="avance-relleno" style="--pct: 70%"></div>
+    <div class="avance-riel" role="img" aria-label="Avance del sistema de cotizaciones: 75 por ciento">
+      <div class="avance-relleno" style="--pct: 75%"></div>
     </div>
     <p class="avance-nota">
-      Tres de los cuatro pasos están listos. Falta el último: que cotice como cotizás vos.
+      Tres de los cuatro pasos están listos y el sistema <strong>ya se usa desde la pantalla</strong>.
+      Falta el último paso: que cotice como cotizás vos.
     </p>
   </div>
 
   <p class="titular">
-    <strong>Tus 12 listas de precios ya están adentro y unificadas.</strong> Eran 4.098 renglones y
-    quedaron en <strong>3.211 productos</strong>, porque uno de cada cinco lo tenías repetido en dos o
-    tres listas a la vez. Ahora, cuando dos proveedores te venden lo mismo, el sistema lo ve como una
-    sola cosa con dos precios.
+    <strong>Esta semana el sistema dejó de ser un motor y pasó a ser algo que se abre y se usa.</strong>
+    Entrás, buscás un producto y ves lo que te cobra cada proveedor, con las <strong>4.198 líneas de
+    precio</strong> de tus 12 listas adentro. Antes eso existía pero no se podía mirar.
   </p>
 
   <div class="tuyo">
-    <span class="etiqueta">Mañana es la entrega, y falta esto</span>
-    <h2>Que Edgar apunte el dominio</h2>
-    <p>Las webs están armadas y se ven, pero en direcciones provisorias. Para que estén en
-    <strong>tu</strong> dominio hace falta un cambio de configuración que solo puede hacer él. Son
-    minutos de trabajo, y es lo último que separa la entrega del 13 de agosto de estar completa.</p>
+    <span class="etiqueta">Lo que necesito de vos, y una decisión que es tuya</span>
+    <h2>El nombre, antes de comprar el dominio</h2>
+    <p>Antes de poner las webs en una dirección definitiva tengo que contarte algo que encontré al
+    buscar qué dominio comprar, y que <strong>es una decisión tuya, no técnica</strong>.</p>
     <div class="puntos">
-      <div class="punto"><strong>Te mando el pedido escrito</strong> para que se lo reenvíes tal cual,
-      sin traducir nada técnico.</div>
-      <div class="punto">Lleva una advertencia importante: <strong>al apuntar la web no se tocan los
-      registros del correo.</strong> Si se tocan, se cae el correo de la empresa. Va con los nombres
-      exactos de lo que no se toca.</div>
+      <div class="punto"><strong>Hay una empresa de software llamada Whaly, y es del mismo rubro:</strong>
+      inteligencia artificial aplicada a ventas. Es francesa, de 2021, con inversión detrás. No es una
+      cafetería que se llama igual — es la coincidencia más incómoda posible.</div>
+      <div class="punto"><strong>Los dominios cortos del nombre ya están tomados</strong>, incluido
+      <strong>whaly.com</strong>, que es de un fabricante de botes desde 2003. Ese no es el problema
+      —otro rubro, nadie los confunde— pero significa que <strong>whaly.com no se puede comprar</strong>,
+      y aparece en tu pitch y en el material de marca.</div>
+      <div class="punto">Lo que sí queda libre son nombres compuestos: <strong>usewhaly.com</strong>,
+      <strong>whalyhq.com</strong>, <strong>whalyglobal.com</strong>. Sirven, y al ser compuestos
+      esquivan de frente la coincidencia.</div>
     </div>
-    <p>Y si te parece, armemos el grupo de los tres que propusiste. Así los pedidos de configuración
-    salen directo y no tenés que hacer de intermediario.</p>
-    <p><strong>Lo que sí te voy a pedir pronto, y todavía no:</strong> escuchando las grabaciones me
-    quedaron unas 40 cosas que decís y que quiero que me confirmes antes de que el sistema las tome
-    como regla fija. Te las voy a mandar <strong>todas juntas, en una sola vuelta</strong>, para no
-    andarte preguntando de a una. Eso lo preparo yo; no frena nada mientras tanto.</p>
+    <p><strong>No te lo digo para frenar nada</strong>, y no revisé nada legal: no soy abogado y no sé
+    si tienen marca registrada ni si les importaría. Te lo digo ahora por una razón práctica: comprar
+    el dominio <em>es</em> decidir el nombre, y hoy cambiarlo cuesta poco —una landing sin publicar y
+    unos archivos—. Cuando esté impreso en cotizaciones y en tu correo, no.</p>
+    <p><strong>Decidís vos, y las dos respuestas están bien.</strong> Si te quedás con Whaly, compramos
+    un compuesto y seguimos igual. Si lo querés repensar, es el mejor momento. Lo único que te pido es
+    que la respuesta llegue antes de comprar el dominio, no después.</p>
+    <p><strong>Y lo otro que te voy a pedir pronto:</strong> escuchando las grabaciones me quedaron unas
+    30 cosas que decís y que quiero que me confirmes antes de que el sistema las tome como regla fija.
+    Te las mando <strong>todas juntas, en una sola vuelta</strong>. Eso lo preparo yo; no frena nada
+    mientras tanto.</p>
   </div>
 
   <h2 class="rotulo-seccion">El sistema de cotizaciones, paso por paso</h2>
@@ -429,19 +436,29 @@
       <span class="que">Enseñarle a leer tus listas</span>
       <span class="chip">Listo · 8 ago</span>
       <span class="porque">Las 12 listas con precios, en sus formatos distintos: <strong>se leen
-      enteras, sin que yo tenga que corregir un renglón</strong>. Eran 4.098 productos sueltos y
-      quedaron en 3.211, porque <strong>uno de cada cinco lo tenías repetido</strong> en dos o tres
-      listas a la vez. Y hay <strong>180 que te vende más de un proveedor</strong>: ahí es donde el
-      sistema te va a mostrar las opciones juntas, que hoy es lo que te obliga a abrir tres archivos.
-      <br><br><em>Lo que todavía no hace: si te llega la lista de un proveedor nuevo, con un formato
-      que nunca vio, hoy la tengo que configurar yo. Que la lea sola es lo que sigue.</em></span>
+      enteras, sin que yo tenga que corregir un renglón</strong>. Son <strong>4.198 líneas de precio</strong>
+      que quedaron agrupadas en <strong>3.282 productos</strong>, y hay <strong>536 que te vende más de
+      un proveedor</strong>: ahí es donde el sistema te muestra las opciones juntas, que hoy es lo que
+      te obliga a abrir tres archivos.
+      <br><br><em>Dos cosas que todavía no hace, y prefiero que las sepas por mí. Una: si te llega la
+      lista de un proveedor nuevo, con un formato que nunca vio, hoy la tengo que configurar yo. Dos:
+      de esas agrupaciones, <strong>205 están mal hechas</strong> — el sistema juntó como un solo
+      producto cosas que eran dos, y se nota porque el mismo proveedor aparece con dos precios muy
+      distintos para lo que dice ser lo mismo. Ya están todas identificadas y marcadas en la pantalla;
+      corregirlas es trabajo mío de los próximos días. Te lo cuento porque si abrís el catálogo lo vas
+      a ver, y prefiero que sepas que está detectado y no que parezca que se me pasó.</em></span>
     </li>
     <li class="paso" data-e="ahora">
       <span class="num">04</span>
       <span class="que">Enseñarle a cotizar como vos</span>
       <span class="chip">Ahora</span>
       <span class="porque">La prueba de fuego: le doy el WhatsApp de Alcave y tiene que salir la misma
-      cotización #685 que mandaste vos.</span>
+      cotización #685 que mandaste vos.
+      <br><br>Esta semana avanzó la mitad del camino. <strong>Ya se puede entrar al sistema y usarlo</strong>:
+      buscar un producto y ver lo que te cobra cada proveedor, cargar la lista que te llegó por WhatsApp
+      pegándola tal cual, aprobar o frenar una lista antes de que se use, y registrar un pedido que entra
+      para que quede con su hora y no se pierda en el teléfono de nadie. <strong>Lo que falta es el
+      último tramo</strong>: que agarre ese pedido, lo entienda solo y devuelva la cotización armada.</span>
     </li>
   </ol>
 
@@ -469,16 +486,26 @@
       <span class="chip">Se ven</span>
       <span class="tareas">
         <span>La de Grupo Jecel, terminada</span>
-        <span>La de Whaly, con la paleta de tu prototipo de mayo</span>
+        <span>La de Whaly, con la paleta que ahora es su identidad oficial</span>
         <span>Las dos revisadas en celular, tablet y computadora</span>
       </span>
     </div>
     <div class="frente" data-e="espera">
       <span class="que">Pasarlas a tu dominio</span>
-      <span class="chip">Espera a Edgar</span>
+      <span class="chip">Espera tu decisión</span>
       <span class="tareas">
-        <span>El pedido para Edgar, escrito y listo para reenviar</span>
-        <span>Falta que él haga el cambio: son minutos</span>
+        <span>Primero el nombre: whaly.com no está disponible — ver arriba</span>
+        <span>Después el dominio, y el pedido para Edgar ya está escrito</span>
+        <span>Su cambio son minutos; lo que falta es saber qué dirección comprar</span>
+      </span>
+    </div>
+    <div class="frente" data-e="curso">
+      <span class="que">El servidor propio</span>
+      <span class="chip">Comprándose</span>
+      <span class="tareas">
+        <span>Lo estoy contratando ahora — queda a tu nombre</span>
+        <span>Es donde va a vivir el sistema cuando salga de mi máquina</span>
+        <span>Después coordinamos cómo se paga la renovación</span>
       </span>
     </div>
     <div class="frente" data-e="listo">
@@ -492,12 +519,24 @@
     </div>
     <div class="frente" data-e="listo">
       <span class="que">Tus listas de precios, adentro</span>
-      <span class="chip">3.211 productos</span>
+      <span class="chip">3.282 productos</span>
       <span class="tareas">
         <span>Las 12 listas se leen enteras, sin corregir a mano</span>
-        <span>4.098 renglones unificados en 3.211 productos</span>
-        <span>180 productos que te vende más de un proveedor, identificados</span>
+        <span>4.198 líneas de precio agrupadas en 3.282 productos</span>
+        <span>536 productos que te vende más de un proveedor, identificados</span>
+        <span>205 agrupaciones mal hechas, detectadas y marcadas para corregir</span>
         <span>Cada lista guarda su versión: la nueva no borra la anterior</span>
+      </span>
+    </div>
+    <div class="frente" data-e="listo">
+      <span class="que">El sistema se abre y se usa</span>
+      <span class="chip">9 pantallas</span>
+      <span class="tareas">
+        <span>Buscar un producto y ver el precio de cada proveedor</span>
+        <span>Cargar una lista pegándola como te llegó, en menos de 3 minutos</span>
+        <span>Aprobar o frenar una lista antes de que se use para cotizar</span>
+        <span>Registrar un pedido que entra, con su hora</span>
+        <span>Una pantalla de inicio que te dice qué hay para decidir hoy</span>
       </span>
     </div>
     <div class="frente" data-e="curso">
@@ -638,10 +677,18 @@
       pasás las fórmulas que ya usás es poco trabajo; solo quiero que decidamos juntos si entra ahora o
       más adelante, para que no se cuele sin hablarlo.</p>
 
+      <h4>El material de marca que armó Yuliana</h4>
+      <p>Lo vi y está muy bien: el manual completo, el logo en sus versiones, la paleta con los códigos
+      y el personaje de Whaly. Esta página ya está pintada con esos colores exactos — de hecho seis de
+      los siete tonos ya coincidían, porque los dos salimos del prototipo que hiciste en mayo.</p>
+      <p>Dos detalles del material que conviene resolver antes de usarlo afuera: aparece
+      <strong>whaly.mx</strong> y <strong>hola@whaly.mx</strong>, que es un dominio de México, y en otra
+      lámina <strong>whaly.com</strong>, que no está disponible. Son direcciones de ejemplo y se cambian
+      en cinco minutos, pero mejor cambiarlas ahora que después de imprimir algo.</p>
+
       <h4>Cositas sueltas, sin apuro</h4>
-      <p>Un teléfono local para el pie de las webs · los términos de la garantía de satisfacción por
-      escrito, con plazo y quién paga el envío de vuelta · y si <strong>whaly.com</strong> ya es tuyo,
-      porque aparece en tu pitch pero Edgar no lo nombró.</p>
+      <p>Un teléfono local para el pie de las webs · y los términos de la garantía de satisfacción por
+      escrito, con plazo y quién paga el envío de vuelta.</p>
     </div>
   </details>
 
@@ -660,7 +707,8 @@
         <li data-hito><span class="fecha">6 ago</span><span>Las dos webs terminadas · tus notas de voz aclarando mis consultas</span></li>
         <li data-hito><span class="fecha">7 ago</span><span>Las dos webs en línea · arranca la carga de tu material</span></li>
         <li data-hito><span class="fecha">8 ago</span><span>Tus 10 horas de grabación, cargadas y probadas — el sistema ya te sabe consultar</span></li>
-        <li data-hito><span class="fecha">13 ago</span><span>Entrega de las dos webs <span class="antes">antes: 6 ago</span></span></li>
+        <li data-hito><span class="fecha">12 ago</span><span>Las listas se cargan pegándolas como llegan, y se aprueban desde la pantalla</span></li>
+        <li data-hito><span class="fecha">13 ago</span><span>Entrega de las dos webs <span class="antes">antes: 6 ago</span> · el sistema ya se abre y se usa: 9 pantallas</span></li>
         <li data-hito><span class="fecha">15 oct</span><span>Sistema de cotizaciones funcionando <span class="antes">antes: 8 oct</span></span></li>
         <li><span class="fecha">nov</span><span>Revisión conjunta del mes 4</span></li>
       </ul>
